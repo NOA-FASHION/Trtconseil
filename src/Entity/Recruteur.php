@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use App\Repository\RecruteurRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: RecruteurRepository::class)]
 class Recruteur
 {
@@ -14,12 +14,16 @@ class Recruteur
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank()]
+    #[Assert\NotNull()]
     private ?string $NameEntreprise = null;
 
     #[ORM\Column]
     private ?bool $active = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank()]
+    #[Assert\NotNull()]
     private ?string $adresseEntreprise = null;
 
     public function getId(): ?int
