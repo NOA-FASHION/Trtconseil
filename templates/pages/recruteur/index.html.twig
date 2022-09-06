@@ -3,7 +3,7 @@
 {% block title %}TRTConseil - Recruteur{% endblock %}
 
 {% block body %}
-{# {% if not recruteurs.items is same as ([]) %} #}
+{% if not recruteurs.items is same as ([]) %}
 <div class="container mt-4">
 <h1>Espace recruteur</h1>
 
@@ -33,11 +33,16 @@
     <tr class="table-primary">
       <th scope="row">{{recruteur.id}}</th>
       <td> {{recruteur.NameEntreprise}}</td>
-     <td> {{recruteur.active}}</td>
+      {% if recruteur.active %}
+       <td>   validé</td>
+        {% else %}
+       <td>  non validé</td>
+      {% endif %}
+    
       <td> {{recruteur.adresseEntreprise}}</td>
  
       <td>
-        {# <a href="{{ path('ingredient.edit',{id : ingredient.id}) }}" class = "btn btn-info">Modifier</a> #}
+        <a href="{{ path('recruteur.edit',{id : recruteur.id}) }}" class = "btn btn-info">Modifier</a>
       </td>
        <td>
         {# <a href="{{path('ingredient.delete',{id : ingredient.id})}}" class = "btn btn-warning">suppression</a> #}
@@ -46,11 +51,11 @@
   {% endfor %}
   </tbody>
 </table>
-{# <div class="navigation d-flex justify-content-center mt-4">
-    {{ knp_pagination_render(ingredients) }}
-</div> #}
-{# {% else %}
+<div class="navigation d-flex justify-content-center mt-4">
+    {{ knp_pagination_render(recruteurs) }}
+</div>
+{% else %}
 <h4>Il n'y a pas d'ingrédients</h4> #}
-{# {% endif %} #}
+{% endif %}
 </div>
 {% endblock %}

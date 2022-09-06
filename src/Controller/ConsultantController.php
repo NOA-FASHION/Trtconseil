@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Recruteur;
+use App\Form\ConsultantRecruteurType;
 use App\Repository\RecruteurRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,5 +43,39 @@ class ConsultantController extends AbstractController
         return $this->render('pages/consultant/recruteur.html.twig', [
             'recruteurs' =>  $recruteurs ,
         ]);
+    }
+
+    #[Route('consultant/edit/{id}','consultant.recruteur.edit', methods:['GET','POST'])]
+    public function edit(Recruteur $recruteur, Request $request,EntityManagerInterface $manager):Response
+    {
+        $form = $this->createForm(ConsultantRecruteurType::class,$recruteur);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $recruteur =$form->getData();
+            $manager->persist($recruteur);
+            $manager->flush();
+            $this->addFlash(
+                'success',
+                'Votre ingrédient à été modifier avec succes !'
+             );
+             return $this->redirectToRoute('recruteur.consultant');
+             
+        }
+
+        return $this->render('pages/consultant/edit.html.twig',[
+            'form' => $form->createView()
+        ]);
+    }
+
+    #[Route('/consultant/delete/{id}','consultant.recruteur.delete', methods :['GET'])]
+    public function delete(EntityManagerInterface $manager,Recruteur $recruteur):Response
+    {
+       $manager->remove($recruteur);
+       $manager->flush();
+       $this->addFlash(
+           'success',
+           'Votre ingrédient à été supprimer avec succes !'
+        );
+        return $this->redirectToRoute('recruteur.consultant');
     }
 }

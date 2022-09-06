@@ -38,14 +38,18 @@
     <tr class="table-primary">
       <th scope="row">{{recruteur.id}}</th>
       <td> {{recruteur.NameEntreprise}}</td>
-     <td> {{recruteur.active}}</td>
+      {% if recruteur.active %}
+       <td>   validé</td>
+        {% else %}
+       <td>  non validé</td>
+      {% endif %}
       <td> {{recruteur.adresseEntreprise}}</td>
  
       <td>
-        {# <a href="{{ path('ingredient.edit',{id : ingredient.id}) }}" class = "btn btn-info">Modifier</a> #}
+        <a href="{{ path('consultant.recruteur.edit',{id : recruteur.id}) }}" class = "btn btn-info">Modifier</a>
       </td>
        <td>
-        {# <a href="{{path('ingredient.delete',{id : ingredient.id})}}" class = "btn btn-warning">suppression</a> #}
+        <a href="{{path('consultant.recruteur.delete',{id : recruteur.id})}}" class = "btn btn-warning">suppression</a>
       </td>
     </tr>
   {% endfor %}
