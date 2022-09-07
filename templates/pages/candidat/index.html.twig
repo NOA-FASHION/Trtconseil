@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TRTConseil - Recruteur{% endblock %}
+
+{% block body %}
+{% if not candidats.items is same as ([]) %}
+<div class="container mt-4">
+<h1>Espace candidat</h1>
+
+
+     {% for message in app.flashes('success') %}
+      <div class="alert alert-success mt-4">
+        {{ message }}
+      </div>
+    {% endfor %} 
+
+
+<h1>Profil</h1>
+<table class="table table-hover mt-2">
+  <thead>
+    <tr>
+     <th scope="col">Numéro</th>
+      <th scope="col">Nom du candidat</th>
+      <th scope="col">Prenom</th>
+      <th scope="col">Validation</th>
+
+      <th scope="col">Edition</th>
+      <th scope="col">Suppression</th>
+    </tr>
+  </thead>
+  <tbody>
+   {% for candidat in candidats %}
+    <tr class="table-primary">
+      <th scope="row">{{candidat.id}}</th>
+      <td> {{candidat.name}}</td>
+         <td> {{candidat.lastname}}</td>
+      {% if candidat.activation %}
+       <td>   validé</td>
+        {% else %}
+       <td>  non validé</td>
+      {% endif %}
+    
+   
+ 
+      <td>
+        <a href="{{ path('candidat.edit',{id : candidat.id}) }}" class = "btn btn-info">Modifier</a>
+      </td>
+       <td>
+        {# <a href="{{path('ingredient.delete',{id : ingredient.id})}}" class = "btn btn-warning">suppression</a> #}
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+<div class="navigation d-flex justify-content-center mt-4">
+    {{ knp_pagination_render(candidats) }}
+</div>
+{% else %}
+<h4>Il n'y a pas d'ingrédients</h4> 
+{% endif %}
+</div>
+{% endblock %}

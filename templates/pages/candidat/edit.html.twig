@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <div class="container">
+    <h1>
+      Création d'un candidat
+    </h1>
+
+     {% for message in app.flashes('success') %}
+      <div class="alert alert-success mt-4">
+        {{ message }}
+      </div>
+    {% endfor %} 
+
+    {{ form_start(form) }}
+
+    <div class="form-group">
+      {{ form_label(form.name) }}
+      {{ form_widget(form.name) }}
+      <div class="form-error">
+        {{ form_errors(form.name) }}
+      </div>
+    </div>
+    <div class="form-group">
+      {{ form_label(form.lastname) }}
+      {{ form_widget(form.lastname) }}
+      <div class="form-error">
+        {{ form_errors(form.lastname) }}
+      </div>
+    </div>
+
+
+     <div class="form-group">
+      {{ form_label(form.cvLien) }}
+      {{ form_widget(form.cvLien) }}
+      <div class="form-error">
+        {{ form_errors(form.cvLien) }}
+      </div>
+    </div>
+
+   
+  </div>
+  {{ form_end(form) }}
+{% endblock %}

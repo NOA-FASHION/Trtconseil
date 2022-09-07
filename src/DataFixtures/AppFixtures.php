@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use Faker\Factory;
 use Faker\Generator;
+use App\Entity\Candidat;
 use App\Entity\Recruteur;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -19,6 +20,8 @@ class AppFixtures extends Fixture
     }
     public function load(ObjectManager $manager): void
     {
+
+        // data recruteur
         for ($i=0; $i < 10; $i++) { 
         $recruteur = new Recruteur();
         $recruteur->setNameEntreprise($this->faker->name())
@@ -28,5 +31,18 @@ class AppFixtures extends Fixture
 
         $manager->flush();
         }
+
+        // data candidat
+
+        for ($i=0; $i < 10; $i++) { 
+            $candidat = new Candidat();
+            $candidat->setName($this->faker->name())
+            ->setLastname($this->faker->name())
+            ->setActivation(true)
+            ->setCvLien($this->faker->word());
+            $manager->persist($candidat);
+    
+            $manager->flush();
+            }
     }
 }
