@@ -6,6 +6,7 @@ use Faker\Factory;
 use Faker\Generator;
 use App\Entity\Candidat;
 use App\Entity\Recruteur;
+use App\Entity\Consultant;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
@@ -44,5 +45,20 @@ class AppFixtures extends Fixture
     
             $manager->flush();
             }
+
+
+            // data consultant
+
+  for ($i=0; $i < 10; $i++) { 
+    $consultant = new Consultant();
+    $consultant->setName($this->faker->name())
+    ->setLastname($this->faker->name());
+    $manager->persist($consultant);
+
+    $manager->flush();
     }
+    }
+
+  
+
 }

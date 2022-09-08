@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TRTConseil - consultant{% endblock %}
+
+{% block body %}
+{% if not consultants.items is same as ([]) %}
+<div class="container mt-4">
+<h1>Espace Admin</h1>
+<a href="{{path('admin.new')}}" class="btn btn-primary mb-4">Créeation d'un consultant</a>
+
+     {% for message in app.flashes('success') %}
+      <div class="alert alert-success mt-4">
+        {{ message }}
+      </div>
+    {% endfor %} 
+
+
+<h3>Profil consultant</h3>
+<table class="table table-hover mt-2">
+  <thead>
+    <tr>
+     <th scope="col">id</th>
+     <th scope="col">Nom</th>
+      <th scope="col">Prénom</th>
+      <th scope="col">Edition</th>
+      <th scope="col">Suppression</th>
+    </tr>
+  </thead>
+  <tbody>
+   {% for consultant in consultants %}
+    <tr class="table-primary">
+      <th scope="row">{{consultant.id}}</th>
+      <td> {{consultant.name}}</td>
+      <td> {{consultant.lastName}}</td>
+ 
+      <td>
+        <a href="{{ path('admin.edit',{id : consultant.id}) }}" class = "btn btn-info">Modifier</a>
+      </td>
+       <td>
+        <a href="{{path('admin.delete',{id : consultant.id})}}" class = "btn btn-warning">suppression</a>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+<div class="navigation d-flex justify-content-center mt-4">
+    {{ knp_pagination_render(consultants) }}
+</div>
+{% else %}
+<h4>Il n'y a pas d'ingrédients</h4> 
+{% endif %}
+</div>
+{% endblock %}

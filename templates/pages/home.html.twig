@@ -10,15 +10,91 @@
         Bienvenue sur TRTConseilAPP
       </h1>
       <p class="lead">
-        TRTConseil est une agence de recrutement spécialisée dans l'hotellerie, elle propose 
-         cette appication pour permettre aux différents acteurs de l'hotellerie de poiuvoir facielmeent changé.
+        TRTConseil est une agence de recrutement spécialisée dans l'hotellerie,
+        elle propose cette appication pour permettre aux différents acteurs de
+        l'hotellerie de poiuvoir facielmeent changé.
       </p>
       <hr class="my-4" />
       <p>
         Pour commencer, rendez vous sur la page d'inscription pour utiliser
         l'application.
       </p>
-      <a class="btn btn-primary btn-lg" href="#" role="button">inscription</a>
+
+      <div class="contenaire">
+        <div class="row">
+          <div class="col card text-white bg-info m-3"
+            style="max-width: 20rem;">
+            <div class="card-header">
+              <a class="btn btn-danger" href="{{ path('recruteur.index') }}">
+            Espace recruteur
+          </a>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">
+                Info card title
+              </h4>
+              <p class="card-text">
+                Some quick example text to build on the card title and make up
+                the bulk of the card's content.
+              </p>
+            </div>
+          </div>
+
+           <div class="col card text-white bg-info m-3"
+            style="max-width: 20rem;">
+            <div class="card-header">
+                <a class="btn btn-danger" href="{{ path('index.consultant') }}">
+            Espace consultant
+          </a>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">
+                Info card title
+              </h4>
+              <p class="card-text">
+                Some quick example text to build on the card title and make up
+                the bulk of the card's content.
+              </p>
+            </div>
+          </div>
+
+           <div class="col card text-white bg-info m-3"
+            style="max-width: 20rem;">
+            <div class="card-header">
+                <a class="btn btn-danger" href="{{ path('index.candidat') }}">
+            Espace candidat
+          </a>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">
+                Info card title
+              </h4>
+              <p class="card-text">
+                Some quick example text to build on the card title and make up
+                the bulk of the card's content.
+              </p>
+            </div>
+          </div>
+
+           <div class="col card text-white bg-info m-3"
+            style="max-width: 20rem;">
+            <div class="card-header">
+                <a class="btn btn-danger" href="{{ path('admin.index') }}">
+            Espace admin
+          </a>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">
+                Info card title
+              </h4>
+              <p class="card-text">
+                Some quick example text to build on the card title and make up
+                the bulk of the card's content.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 {% endblock %}
