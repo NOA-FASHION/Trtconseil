@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Annonce;
 use Faker\Factory;
 use Faker\Generator;
 use App\Entity\Candidat;
@@ -22,12 +23,14 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
 
-        // data recruteur
+        // data 
+        $recruteurs =[];
         for ($i=0; $i < 10; $i++) { 
         $recruteur = new Recruteur();
         $recruteur->setNameEntreprise($this->faker->name())
         ->setActive(true)
         ->setAdresseEntreprise($this->faker->word());
+        $recruteurs []=$recruteur;
         $manager->persist($recruteur);
 
         $manager->flush();
@@ -57,8 +60,22 @@ class AppFixtures extends Fixture
 
     $manager->flush();
     }
+
+
+    // data Annonces
+   for ($i=0; $i < 10; $i++) { 
+    $annonce = new Annonce();
+    $annonce->setName($this->faker->name())
+    ->setActive(true)
+    ->setIntitulePoste($this->faker->word())
+    ->setLieuTravail($this->faker->name())
+    ->setHorairePost($this->faker->name())
+    ->setSalaire("2000")
+    ->setDesciptionPoste($this->faker->word())
+    ->setRecruteur($recruteurs[mt_rand(0,count($recruteurs)-1)]);
+    $manager->persist($annonce);
+
+    $manager->flush();
     }
-
-  
-
+    }
 }

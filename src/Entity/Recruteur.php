@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RecruteurRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: RecruteurRepository::class)]
@@ -25,6 +27,14 @@ class Recruteur
     #[Assert\NotBlank()]
     #[Assert\NotNull()]
     private ?string $adresseEntreprise = null;
+
+    #[ORM\OneToMany(mappedBy: 'recruteur', targetEntity: Annonce::class)]
+    private Collection $Annonce;
+
+    public function __construct()
+    {
+        $this->Annonce = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -63,6 +73,36 @@ class Recruteur
     public function setAdresseEntreprise(?string $adresseEntreprise): self
     {
         $this->adresseEntreprise = $adresseEntreprise;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Annonce>
+     */
+    public function getAnnonce(): Collection
+    {
+        return $this->Annonce;
+    }
+
+    public function addAnnonce(Annonce $annonce): self
+    {
+        if (!$this->Annonce->contains($annonce)) {
+            $this->Annonce->add($annonce);
+            $annonce->setRecruteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnnonce(Annonce $annonce): self
+    {
+        if ($this->Annonce->removeElement($annonce)) {
+            // set the owning side to null (unless already changed)
+            if ($annonce->getRecruteur() === $this) {
+                $annonce->setRecruteur(null);
+            }
+        }
 
         return $this;
     }
