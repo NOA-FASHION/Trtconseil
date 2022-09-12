@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Annonce;
 use App\Entity\Candidat;
 use App\Entity\Recruteur;
+use App\Form\ConsultantAnnonceType;
 use App\Form\ConsultantCandidatType;
 use App\Form\ConsultantRecruteurType;
+use App\Repository\AnnonceRepository;
 use App\Repository\CandidatRepository;
 use App\Repository\RecruteurRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -128,5 +131,42 @@ class ConsultantController extends AbstractController
            'Votre ingrédient à été supprimer avec succes !'
         );
         return $this->redirectToRoute('consultant.candidat');
+    }
+
+    #[Route('consultant/annonce/','consultant.annonce', methods:['GET','POST'])]
+    public function annonce(AnnonceRepository $repository,PaginatorInterface $paginator,Request $request):Response
+    {
+
+        $annonces = $paginator->paginate(
+            $repository->findAll(), 
+            $request->query->getInt('page', 1), /*page number*/
+            5 /*limit per page*/
+        );
+        return $this->render('pages/consultant/annonces/index.html.twig',[
+            'annonces'=>$annonces,
+            
+        ]);
+    }
+
+    #[Route('consultant/annonce/edit/{id}','consultant.annonce.edit', methods:['GET','POST'])]
+    public function editAnnonces(Annonce $annonces, Request $request,EntityManagerInterface $manager):Response
+    {
+        $form = $this->createForm(ConsultantAnnonceType::class,$annonces);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $annonces =$form->getData();
+            $manager->persist($annonces);
+            $manager->flush();
+            $this->addFlash(
+                'success',
+                'Votre annonce à été modifier avec succes !'
+             );
+             return $this->redirectToRoute('consultant.annonce');
+             
+        }
+
+        return $this->render('pages/consultant/annonces/edit.html.twig',[
+            'form' => $form->createView()
+        ]);
     }
 }

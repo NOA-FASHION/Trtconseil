@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Candidat;
 use App\Form\CandidatType;
+use App\Repository\AnnonceRepository;
 use App\Repository\CandidatRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -70,6 +71,21 @@ class CandidatController extends AbstractController
 
         return $this->render('pages/candidat/edit.html.twig',[
             'form' => $form->createView()
+        ]);
+    }
+
+    #[Route('candidat/annonce/','candidat.annonce', methods:['GET','POST'])]
+    public function annonce(AnnonceRepository $repository,PaginatorInterface $paginator,Request $request):Response
+    {
+
+        $annonces = $paginator->paginate(
+            $repository->findBy(["active"=>true]), 
+            $request->query->getInt('page', 1), /*page number*/
+            5 /*limit per page*/
+        );
+        return $this->render('pages/candidat/annonces.html.twig',[
+            'annonces'=>$annonces,
+            
         ]);
     }
 

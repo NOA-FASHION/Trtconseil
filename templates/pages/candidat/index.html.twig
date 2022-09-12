@@ -25,7 +25,7 @@
       <th scope="col">Validation</th>
 
       <th scope="col">Edition</th>
-      <th scope="col">Suppression</th>
+      <th scope="col">Annonces</th>
     </tr>
   </thead>
   <tbody>
@@ -46,7 +46,7 @@
         <a href="{{ path('candidat.edit',{id : candidat.id}) }}" class = "btn btn-info">Modifier</a>
       </td>
        <td>
-        {# <a href="{{path('ingredient.delete',{id : ingredient.id})}}" class = "btn btn-warning">suppression</a> #}
+        <a href="{{path('candidat.annonce')}}" class = "btn btn-warning">Annonces</a>
       </td>
     </tr>
   {% endfor %}

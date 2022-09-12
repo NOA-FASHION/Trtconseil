@@ -5,9 +5,9 @@
 {% block body %}
 {# {% if not annonces.items is same as ([]) %} #}
 <div class="container mt-4">
-<h1>Espace recruteur</h1>
+<h1>Espace candidat</h1>
 
- <a class="btn btn-primary btn-dark"  href="{{ path('recruteur.annonce.new',{id : id}) }}">nouvelle annonce</a>
+ {# <a class="btn btn-primary btn-dark"  href="{{ path('recruteur.annonce.new',{id : id}) }}">nouvelle annonce</a> #}
      {% for message in app.flashes('success') %}
       <div class="alert alert-success mt-4">
         {{ message }}
@@ -15,7 +15,7 @@
     {% endfor %} 
 
 
-<h1>Profil</h1>
+<h1>Annonces en cours</h1>
 <table class="table table-hover mt-2">
   <thead>
     <tr>
@@ -46,19 +46,19 @@
       <td>
         <a href="{{ path('recruteur.annonce.new',{id : id}) }}" class = "btn btn-info">créér</a>
       </td> #}
-       <td>
-         <a href="{{ path('recruteur.annonce.edit',{id : id,id1 : annonce.id}) }}" class="btn btn-info">edit</a> 
+       {# <td>
+         <a href="{{ path('consultant.annonce.edit',{id :annonce.id}) }}" class="btn btn-info">edit</a> 
       </td>
-        <td>
-         <a href="{{ path('recruteur.annonce.delete',{id : id,id1 : annonce.id}) }}" class="btn btn-info">delete</a> 
+        <td> #}
+         {# <a href="{{ path('recruteur.annonce.delete',{id : id,id1 : annonce.id}) }}" class="btn btn-info">delete</a>  #}
       </td>
     </tr>
   {% endfor %}
   </tbody>
 </table>
-{# <div class="navigation d-flex justify-content-center mt-4">
-    {{ knp_pagination_render(annonce) }}
-</div> #}
+<div class="navigation d-flex justify-content-center mt-4">
+    {{ knp_pagination_render(annonces) }}
+</div>
 {# {% else %}
 <h4>Il n'y a pas d'ingrédients</h4> #}
 {# {% endif %} #} 

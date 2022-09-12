@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <div class="container">
+    <h1>
+      modifier une annonce
+    </h1>
+
+     {% for message in app.flashes('success') %}
+      <div class="alert alert-success mt-4">
+        {{ message }}
+      </div>
+    {% endfor %} 
+
+    {{ form_start(form) }}
+
+    <div class="form-group">
+      {{ form_label(form.name) }}
+      {{ form_widget(form.name) }}
+      <div class="form-error">
+        {{ form_errors(form.name) }}
+      </div>
+    </div>
+
+     <div class="form-check form-switch">
+      {{ form_label(form.active) }}
+      {{ form_widget(form.active) }}
+      <div class="form-error">
+        {{ form_errors(form.active) }}
+      </div>
+    </div>
+
+     <div class="form-group">
+      {{ form_label(form.intitulePoste) }}
+      {{ form_widget(form.intitulePoste) }}
+      <div class="form-error">
+        {{ form_errors(form.intitulePoste) }}
+      </div>
+    </div>
+
+       <div class="form-group">
+      {{ form_label(form.lieuTravail) }}
+      {{ form_widget(form.lieuTravail) }}
+      <div class="form-error">
+        {{ form_errors(form.lieuTravail) }}
+      </div>
+    </div>
+
+
+   <div class="form-group">
+      {{ form_label(form.horairePost) }}
+      {{ form_widget(form.horairePost) }}
+      <div class="form-error">
+        {{ form_errors(form.horairePost) }}
+      </div>
+    </div>
+
+
+   <div class="form-group">
+      {{ form_label(form.Salaire) }}
+      {{ form_widget(form.Salaire) }}
+      <div class="form-error">
+        {{ form_errors(form.Salaire) }}
+      </div>
+    </div>
+
+
+   <div class="form-group">
+      {{ form_label(form.desciptionPoste) }}
+      {{ form_widget(form.desciptionPoste) }}
+      <div class="form-error">
+        {{ form_errors(form.desciptionPoste) }}
+      </div>
+    </div>
+
+
+    
+
+
+   
+  </div>
+  {{ form_end(form) }}
+{% endblock %}
