@@ -2,9 +2,10 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Annonce;
 use Faker\Factory;
+use App\Entity\User;
 use Faker\Generator;
+use App\Entity\Annonce;
 use App\Entity\Candidat;
 use App\Entity\Recruteur;
 use App\Entity\Consultant;
@@ -22,6 +23,20 @@ class AppFixtures extends Fixture
     }
     public function load(ObjectManager $manager): void
     {
+
+        //users
+
+        $users = [];
+        for ($i=0; $i < 10; $i++) { 
+            $user = new User();
+            $user->setEmail($this->faker->email())
+            ->setRoles(['ROLE_USER'])
+            ->setPlainPassword('password');
+           $users[]=$user;
+            
+            $manager->persist($user);
+
+        }
 
         // data 
         $recruteurs =[];
