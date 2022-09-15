@@ -32,12 +32,16 @@ class SecurityController extends AbstractController
     public function registration(Request $request, EntityManagerInterface $manager): Response
     {
         $user = new User();
-        $user->setRoles(['ROLE_USER']);
+        
         $form = $this->createForm(RegistrationType::class,$user);
         $form->handleRequest($request);
         if ($form->isSubmitted()  && $form->isValid()){
             $user = $form->getData();
-
+            if ($user->isIsRecruteur()){
+                $user->setRoles(['ROLE_RECRUTEUR']);
+            }else{
+                $user->setRoles(['ROLE_CANDIDAT']);
+            }
             $this->addFlash(
                 'success',
                 'Votre compte à été crée avec succes !'

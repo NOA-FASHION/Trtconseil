@@ -37,6 +37,11 @@ class Annonce
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $desciptionPoste = null;
 
+    #[ORM\ManyToOne(inversedBy: 'annonces')]
+    private ?User $useAnnonce = null;
+
+   
+
     public function getId(): ?int
     {
         return $this->id;
@@ -137,4 +142,18 @@ class Annonce
 
         return $this;
     }
+
+    public function getUseAnnonce(): ?User
+    {
+        return $this->useAnnonce;
+    }
+
+    public function setUseAnnonce(?User $useAnnonce): self
+    {
+        $this->useAnnonce = $useAnnonce;
+
+        return $this;
+    }
+
+   
 }

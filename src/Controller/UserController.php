@@ -9,6 +9,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,6 +33,7 @@ class UserController extends AbstractController
 
 
     #[Route('/user/edition/{id}', name: 'user.edit')]
+    #[Security("is_granted('ROLE_USER') and user === choosenUser")]
     public function edition(User $choosenUser, Request $request, EntityManagerInterface $manager,UserPasswordHasherInterface $hasher): Response
     {
        
@@ -68,6 +70,7 @@ class UserController extends AbstractController
 
   
     #[Route('/user/edition-mot-de-passe/{id}', 'user.edit.password', methods:['GET','POST'])]
+    #[Security("is_granted('ROLE_USER') and user === choosenUser")]
     public function editPassword(User $choosenUser, Request $request,UserPasswordHasherInterface $hasher, EntityManagerInterface $manager): Response
     {
         $form = $this->createForm(UserPasswordType::class);
@@ -105,6 +108,7 @@ class UserController extends AbstractController
 
 
     #[Route('/user/suppression/{id}','user.delete', methods :['GET'])]
+    
     public function delete(EntityManagerInterface $manager,User $choosenUser):Response
     {
        $manager->remove($choosenUser);

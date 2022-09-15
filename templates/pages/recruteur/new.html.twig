@@ -3,8 +3,10 @@
 {% block body %}
   <div class="container">
     <h1>
-      Création d'un recruteur
+      Bonjour {{ user.email }} 
     </h1>
+
+    <h4>Veuillez compléter votre profil</h4>
 
      {% for message in app.flashes('success') %}
       <div class="alert alert-success mt-4">
