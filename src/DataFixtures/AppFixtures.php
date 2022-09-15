@@ -31,6 +31,7 @@ class AppFixtures extends Fixture
             $user = new User();
             $user->setEmail($this->faker->email())
             ->setRoles(['ROLE_USER'])
+            ->setIsRecruteur(true)
             ->setPlainPassword('password');
            $users[]=$user;
             

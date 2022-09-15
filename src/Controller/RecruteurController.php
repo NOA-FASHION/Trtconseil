@@ -13,32 +13,53 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class RecruteurController extends AbstractController
 {
     #[Route('/recruteur', name: 'recruteur.index')]
-    public function index(RecruteurRepository $repository,PaginatorInterface $paginator,Request $request): Response
+    #[IsGranted('ROLE_USER')]
+    public function index(RecruteurRepository $repository,AnnonceRepository $repository1,PaginatorInterface $paginator,Request $request): Response
     {
-        $recruteurs = $paginator->paginate(
-            $repository->findAll(), 
-            $request->query->getInt('page', 1), /*page number*/
-            5 /*limit per page*/
-        );
+
+          /**
+        * @var User
+         */
+        $user=$this->getUser();
+        if(!$user->isIsRecruteur()){
+            return $this->redirectToRoute('home.index');
+        }
+      
+        $recruteur = $repository->findOneBy(['userRecrutueur'=> $this->getUser()]);
+        if(!$recruteur->getUserRecrutueur() === null){
+            return $this->redirectToRoute('recruteur.new');
+        }
+        $annonces  = $repository1->findBy(["recruteur"=>$recruteur->getId()]);
+       
         return $this->render('pages/recruteur/index.html.twig', [
-            'recruteurs' =>  $recruteurs ,
+            'recruteur' =>  $recruteur ,
+            'annonces'=>$annonces,
+            'id'=>$recruteur->getId()
         ]);
     }
 
     #[Route('recruteur/new','recruteur.new',methods:['GET', 'POST'])]
     public function new(Request $request,EntityManagerInterface $manager):Response
     {
+
+          /**
+        * @var User
+         */
+        $user=$this->getUser();
+        $idUser=$user->getId();
         $recruteur = new Recruteur();
         $form = $this->createForm(RecruteurType::class,$recruteur);
         $form->handleRequest($request);
         if($form->isSubmitted()  && $form->isValid()){
             $recruteur = $form->getData();
             $recruteur->setActive(false);
+            $recruteur->setUserRecrutueur( $user);
             $manager->persist($recruteur);
             $manager->flush();
             $this->addFlash(

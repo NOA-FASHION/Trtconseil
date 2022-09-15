@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -33,6 +34,28 @@ class RegistrationType extends AbstractType
                 new Assert\Length(['min' => 2, 'max' => 180])
             ]
         ])
+
+        ->add('isRecruteur', ChoiceType::class, [
+            'choices'  => [
+                'Choix' => null,
+                'Recruteur' => true,
+                'Candidat' => false,
+            ],
+            'attr' => [
+                'class' => 'dropdown-toggle',
+               
+            ],
+            'label' => 'type utilsateur',
+            'label_attr' => [
+                'class' => 'form-label  m-4'
+            ],
+            'constraints' => [
+                new Assert\NotBlank(),
+            
+            ]
+        ])
+        
+
         ->add('plainPassword', RepeatedType::class, [
             'type' => PasswordType::class,
             'first_options' => [

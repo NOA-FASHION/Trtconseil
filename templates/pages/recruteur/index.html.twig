@@ -3,7 +3,7 @@
 {% block title %}TRTConseil - Recruteur{% endblock %}
 
 {% block body %}
-{% if not recruteurs.items is same as ([]) %}
+{% if recruteur is not null %}
 <div class="container mt-4">
 <h1>Espace recruteur</h1>
 
@@ -29,7 +29,7 @@
     </tr>
   </thead>
   <tbody>
-   {% for recruteur in recruteurs %}
+   
     <tr class="table-primary">
       <th scope="row">{{recruteur.id}}</th>
       <td> {{recruteur.NameEntreprise}}</td>
@@ -48,12 +48,71 @@
         <a href="{{path('recruteur.annonce',{id : recruteur.id})}}" class = "btn btn-warning">annonces</a>
       </td>
     </tr>
+
+  </tbody>
+</table>
+
+
+
+{# {% if not annonces.items is same as ([]) %} #}
+<div class="container mt-4">
+<h1>Annonces</h1>
+
+ <a class="btn btn-primary btn-dark"  href="{{ path('recruteur.annonce.new',{id : id}) }}">nouvelle annonce</a>
+     {% for message in app.flashes('success') %}
+      <div class="alert alert-success mt-4">
+        {{ message }}
+      </div>
+    {% endfor %} 
+
+<table class="table table-hover mt-2">
+  <thead>
+    <tr>
+     <th scope="col">Numéro</th>
+      <th scope="col">Annonce</th>
+      <th scope="col">Activation</th>
+      <th scope="col">intitulé du poste</th>
+
+
+      <th scope="col">Editer</th>
+      <th scope="col">supprimer</th>
+    </tr>
+  </thead>
+  <tbody>
+   {% for annonce in annonces %}
+    <tr class="table-primary">
+      <th scope="row">{{annonce.id}}</th>
+      <td> {{annonce.name}}</td>
+      {% if annonce.active %}
+       <td>   validé</td>
+        {% else %}
+       <td>  non validé</td>
+      {% endif %}
+     <td> {{annonce.intitulePoste}}</td>
+    
+
+{#  
+      <td>
+        <a href="{{ path('recruteur.annonce.new',{id : id}) }}" class = "btn btn-info">créér</a>
+      </td> #}
+       <td>
+         <a href="{{ path('recruteur.annonce.edit',{id : id,id1 : annonce.id}) }}" class="btn btn-info">edit</a> 
+      </td>
+        <td>
+         <a href="{{ path('recruteur.annonce.delete',{id : id,id1 : annonce.id}) }}" class="btn btn-info">delete</a> 
+      </td>
+    </tr>
   {% endfor %}
   </tbody>
 </table>
-<div class="navigation d-flex justify-content-center mt-4">
-    {{ knp_pagination_render(recruteurs) }}
+{# <div class="navigation d-flex justify-content-center mt-4">
+    {{ knp_pagination_render(annonce) }}
+</div> #}
+{# {% else %}
+<h4>Il n'y a pas d'ingrédients</h4> #}
+{# {% endif %} #} 
 </div>
+
 {% else %}
 <h4>Il n'y a pas d'ingrédients</h4> #}
 {% endif %}

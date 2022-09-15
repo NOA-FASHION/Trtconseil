@@ -31,6 +31,9 @@ class Recruteur
     #[ORM\OneToMany(mappedBy: 'recruteur', targetEntity: Annonce::class)]
     private Collection $Annonce;
 
+    #[ORM\OneToOne(inversedBy: 'recruteur', cascade: ['persist', 'remove'])]
+    private ?User $userRecrutueur = null;
+
     public function __construct()
     {
         $this->Annonce = new ArrayCollection();
@@ -103,6 +106,18 @@ class Recruteur
                 $annonce->setRecruteur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUserRecrutueur(): ?User
+    {
+        return $this->userRecrutueur;
+    }
+
+    public function setUserRecrutueur(?User $userRecrutueur): self
+    {
+        $this->userRecrutueur = $userRecrutueur;
 
         return $this;
     }

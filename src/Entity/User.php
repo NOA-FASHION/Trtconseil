@@ -37,6 +37,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank()]
     private ?string $password = 'password';
 
+    #[ORM\OneToOne(mappedBy: 'userRecrutueur', cascade: ['persist', 'remove'])]
+    private ?Recruteur $recruteur = null;
+
+    #[ORM\Column]
+    private ?bool $isRecruteur = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -125,5 +131,39 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getRecruteur(): ?Recruteur
+    {
+        return $this->recruteur;
+    }
+
+    public function setRecruteur(?Recruteur $recruteur): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($recruteur === null && $this->recruteur !== null) {
+            $this->recruteur->setUserRecrutueur(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($recruteur !== null && $recruteur->getUserRecrutueur() !== $this) {
+            $recruteur->setUserRecrutueur($this);
+        }
+
+        $this->recruteur = $recruteur;
+
+        return $this;
+    }
+
+    public function isIsRecruteur(): ?bool
+    {
+        return $this->isRecruteur;
+    }
+
+    public function setIsRecruteur(bool $isRecruteur): self
+    {
+        $this->isRecruteur = $isRecruteur;
+
+        return $this;
     }
 }
