@@ -34,6 +34,7 @@ security:
         - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/profile, roles: ROLE_RECRUTEUR }
         - { path: ^/profile, roles: ROLE_CANDIDAT }
+        - { path: ^/profile, roles: ROLE_CONSULTANT }
 
 when@test:
     security:

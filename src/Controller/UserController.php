@@ -17,19 +17,19 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserController extends AbstractController
 {
-    #[Route('/user', name: 'user.index')]
-    public function index(UserRepository $repository,PaginatorInterface $paginator,Request $request): Response
-    {
+    // #[Route('/user', name: 'user.index')]
+    // public function index(UserRepository $repository,PaginatorInterface $paginator,Request $request): Response
+    // {
       
-        $users  = $paginator->paginate(
-            $repository->findAll(), /* query NOT result */
-            $request->query->getInt('page', 1), /*page number*/
-            6 /*limit per page*/
-        );
-        return $this->render('pages/user/index.html.twig', [
-            'users' => $users
-        ]);
-    }
+    //     $users  = $paginator->paginate(
+    //         $repository->findAll(), /* query NOT result */
+    //         $request->query->getInt('page', 1), /*page number*/
+    //         6 /*limit per page*/
+    //     );
+    //     return $this->render('pages/user/index.html.twig', [
+    //         'users' => $users
+    //     ]);
+    // }
 
 
     #[Route('/user/edition/{id}', name: 'user.edit')]

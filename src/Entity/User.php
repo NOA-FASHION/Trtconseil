@@ -48,6 +48,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'useAnnonce', targetEntity: Annonce::class)]
     private Collection $annonces;
 
+    #[ORM\OneToOne(mappedBy: 'userCandidat', cascade: ['persist', 'remove'])]
+    private ?Candidat $candidat = null;
+
     public function __construct()
     {
         $this->annonces = new ArrayCollection();
@@ -203,6 +206,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $annonce->setUseAnnonce(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCandidat(): ?Candidat
+    {
+        return $this->candidat;
+    }
+
+    public function setCandidat(?Candidat $candidat): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($candidat === null && $this->candidat !== null) {
+            $this->candidat->setUserCandidat(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($candidat !== null && $candidat->getUserCandidat() !== $this) {
+            $candidat->setUserCandidat($this);
+        }
+
+        $this->candidat = $candidat;
 
         return $this;
     }

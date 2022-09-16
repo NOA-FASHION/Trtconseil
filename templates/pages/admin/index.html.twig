@@ -20,8 +20,9 @@
   <thead>
     <tr>
      <th scope="col">id</th>
-     <th scope="col">Nom</th>
-      <th scope="col">Prénom</th>
+     <th scope="col">Email</th>
+
+      <th scope="col">Role</th>
       <th scope="col">Edition</th>
       <th scope="col">Suppression</th>
     </tr>
@@ -30,14 +31,20 @@
    {% for consultant in consultants %}
     <tr class="table-primary">
       <th scope="row">{{consultant.id}}</th>
-      <td> {{consultant.name}}</td>
-      <td> {{consultant.lastName}}</td>
+      <td> {{consultant.email}}</td>
+      <td> {{consultant.roles[0]}}</td>
+     
+
  
       <td>
-        <a href="{{ path('admin.edit',{id : consultant.id}) }}" class = "btn btn-info">Modifier</a>
+        <a href="{{ path('admin.user.edit',{id : consultant.id}) }}" class = "btn btn-info">Modifier </a>
       </td>
        <td>
-        <a href="{{path('admin.delete',{id : consultant.id})}}" class = "btn btn-warning">suppression</a>
+        <a href="{{path('admin.user.edit.password',{id : consultant.id})}}" class = "btn btn-warning">modifier password</a>
+      </td>
+      
+       <td>
+        <a href="{{path('admin.user.delete',{id : consultant.id})}}" class = "btn btn-warning">suppression</a>
       </td>
     </tr>
   {% endfor %}

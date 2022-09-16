@@ -19,82 +19,89 @@
         Pour commencer, rendez vous sur la page d'inscription pour utiliser
         l'application.
       </p>
-
-      <div class="contenaire">
-        <div class="row">
-          <div class="col card text-white bg-info m-3"
-            style="max-width: 20rem;">
-            <div class="card-header">
-              <a class="btn btn-danger" href="{{ path('recruteur.index') }}">
-            Espace recruteur
-          </a>
-            </div>
-            <div class="card-body">
-              <h4 class="card-title">
-                Info card title
-              </h4>
-              <p class="card-text">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p>
-            </div>
-          </div>
-
-           <div class="col card text-white bg-info m-3"
-            style="max-width: 20rem;">
-            <div class="card-header">
-                <a class="btn btn-danger" href="{{ path('index.candidat') }}">
-            Espace candidat
-          </a>
-            </div>
-            <div class="card-body">
-              <h4 class="card-title">
-                Info card title
-              </h4>
-              <p class="card-text">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p>
-            </div>
-          </div>
-
+      {% if app.user %}
+        <div class="contenaire">
+          <div class="row">
+          {% if is_granted('ROLE_RECRUTEUR') %}
             <div class="col card text-white bg-info m-3"
-            style="max-width: 20rem;">
-            <div class="card-header">
-                <a class="btn btn-danger" href="{{ path('index.consultant') }}">
-            Espace consultant
-          </a>
+              style="max-width: 20rem;">
+              <div class="card-header">
+                <a class="btn btn-danger" href="{{ path('recruteur.index') }}">
+                  Espace recruteur
+                </a>
+              </div>
+              <div class="card-body">
+                <h4 class="card-title">
+                  Info card title
+                </h4>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+              </div>
             </div>
-            <div class="card-body">
-              <h4 class="card-title">
-                Info card title
-              </h4>
-              <p class="card-text">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p>
-            </div>
-          </div>
-
-           <div class="col card text-white bg-info m-3"
-            style="max-width: 20rem;">
-            <div class="card-header">
-                <a class="btn btn-danger" href="{{ path('admin.index') }}">
-            Espace admin
-          </a>
-            </div>
-            <div class="card-body">
-              <h4 class="card-title">
-                Info card title
-              </h4>
-              <p class="card-text">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p>
-            </div>
+               {% endif %}
+            {% if is_granted('ROLE_CANDIDAT') %}
+              <div class="col card text-white bg-info m-3"
+                style="max-width: 20rem;">
+                <div class="card-header">
+                  <a class="btn btn-danger" href="{{ path('index.candidat') }}">
+                    Espace candidat
+                  </a>
+                </div>
+                <div class="card-body">
+                  <h4 class="card-title">
+                    Info card title
+                  </h4>
+                  <p class="card-text">
+                    Some quick example text to build on the card title and make
+                    up the bulk of the card's content.
+                  </p>
+                </div>
+              </div>
+            {% endif %}
+            {% if is_granted('ROLE_CONSULTANT') %}
+              <div class="col card text-white bg-info m-3"
+                style="max-width: 20rem;">
+                <div class="card-header">
+                  <a class="btn btn-danger"
+                    href="{{ path('index.consultant') }}">
+                    Espace consultant
+                  </a>
+                </div>
+                <div class="card-body">
+                  <h4 class="card-title">
+                    Info card title
+                  </h4>
+                  <p class="card-text">
+                    Some quick example text to build on the card title and make
+                    up the bulk of the card's content.
+                  </p>
+                </div>
+              </div>
+            {% endif %}
+            {% if is_granted('ROLE_ADMIN') %}
+              <div class="col card text-white bg-info m-3"
+                style="max-width: 20rem;">
+                <div class="card-header">
+                  <a class="btn btn-danger" href="{{ path('admin.index') }}">
+                    Espace admin
+                  </a>
+                </div>
+                <div class="card-body">
+                  <h4 class="card-title">
+                    Info card title
+                  </h4>
+                  <p class="card-text">
+                    Some quick example text to build on the card title and make
+                    up the bulk of the card's content.
+                  </p>
+                </div>
+              </div>
+            {% endif %}
           </div>
         </div>
-      </div>
+      {% endif %}
     </div>
   </div>
 {% endblock %}

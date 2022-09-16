@@ -79,7 +79,7 @@ class RecruteurController extends AbstractController
     }
 
     #[Route('recruteur/edit/{id}','recruteur.edit', methods:['GET','POST'])]
-    
+    #[IsGranted('ROLE_RECRUTEUR')]
     public function edit(Recruteur $recruteur, Request $request,EntityManagerInterface $manager):Response
     {
         $user=$this->getUser();
@@ -200,7 +200,7 @@ class RecruteurController extends AbstractController
     }
 
     #[Route('/recruteur/annonce/suppression/{id}/{id1}','recruteur.annonce.delete', methods :['GET'])]
-    
+    #[IsGranted('ROLE_RECRUTEUR')]
     public function delete(EntityManagerInterface $manager,Annonce $annonces,int $id, int $id1):Response
     {
         $user=$this->getUser();

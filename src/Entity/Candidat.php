@@ -27,6 +27,9 @@ class Candidat
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $cvLien = null;
 
+    #[ORM\OneToOne(inversedBy: 'candidat', cascade: ['persist', 'remove'])]
+    private ?User $userCandidat = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -76,6 +79,18 @@ class Candidat
     public function setCvLien(?string $cvLien): self
     {
         $this->cvLien = $cvLien;
+
+        return $this;
+    }
+
+    public function getUserCandidat(): ?User
+    {
+        return $this->userCandidat;
+    }
+
+    public function setUserCandidat(?User $userCandidat): self
+    {
+        $this->userCandidat = $userCandidat;
 
         return $this;
     }

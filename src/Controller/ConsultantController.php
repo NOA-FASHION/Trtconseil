@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Annonce;
 use App\Entity\Candidat;
 use App\Entity\Recruteur;
+use App\Repository\UserRepository;
 use App\Form\ConsultantAnnonceType;
 use App\Form\ConsultantCandidatType;
 use App\Form\ConsultantRecruteurType;
@@ -16,6 +17,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ConsultantController extends AbstractController
@@ -27,6 +29,7 @@ class ConsultantController extends AbstractController
      * @return Response
      */
     #[Route('/consultant', 'index.consultant', methods : ['GET'])]
+    #[IsGranted('ROLE_CONSULTANT')]
     public function index(): Response
     {
         return $this->render('pages/consultant/index.html.twig');
@@ -39,8 +42,10 @@ class ConsultantController extends AbstractController
      * @return Response
      */
     #[Route('/consultant/recruteur', name: 'consultant.recruteur',methods:['GET'])]
-    public function recruteur(RecruteurRepository $repository,PaginatorInterface $paginator,Request $request): Response
+    #[IsGranted('ROLE_CONSULTANT')]
+    public function recruteur(UserRepository $repository1,RecruteurRepository $repository,PaginatorInterface $paginator,Request $request): Response
     {
+        $users = $repository1->findAll();
         $recruteurs = $paginator->paginate(
             $repository->findAll(), 
             $request->query->getInt('page', 1), /*page number*/
@@ -48,10 +53,12 @@ class ConsultantController extends AbstractController
         );
         return $this->render('pages/consultant/recruteur/index.html.twig', [
             'recruteurs' =>  $recruteurs ,
+            'user'=>$users
         ]);
     }
 
     #[Route('consultant/recruteur/edit/{id}','consultant.recruteur.edit', methods:['GET','POST'])]
+    #[IsGranted('ROLE_CONSULTANT')]
     public function edit(Recruteur $recruteur, Request $request,EntityManagerInterface $manager):Response
     {
         $form = $this->createForm(ConsultantRecruteurType::class,$recruteur);
@@ -74,6 +81,7 @@ class ConsultantController extends AbstractController
     }
 
     #[Route('/consultant/recruteur/delete/{id}','consultant.recruteur.delete', methods :['GET'])]
+    #[IsGranted('ROLE_CONSULTANT')]
     public function delete(EntityManagerInterface $manager,Recruteur $recruteur):Response
     {
        $manager->remove($recruteur);
@@ -86,6 +94,7 @@ class ConsultantController extends AbstractController
     }
 
     #[Route('/consultant/candidat', name: 'consultant.candidat', methods : ['GET'])]
+    #[IsGranted('ROLE_CONSULTANT')]
     public function candidat(CandidatRepository $repository,PaginatorInterface $paginator,Request $request): Response
     {
         $candidat = $paginator->paginate(
@@ -100,6 +109,7 @@ class ConsultantController extends AbstractController
     }
 
     #[Route('candidat/candidat/edit/{id}','consultant.candidat.edit', methods:['GET','POST'])]
+    #[IsGranted('ROLE_CONSULTANT')]
     public function editCandidat(Candidat $candidat, Request $request,EntityManagerInterface $manager):Response
     {
         $form = $this->createForm(ConsultantCandidatType::class,$candidat);
@@ -122,6 +132,7 @@ class ConsultantController extends AbstractController
     }
 
     #[Route('/consultant/candidat/delete/{id}','consultant.candidat.delete', methods :['GET'])]
+    #[IsGranted('ROLE_CONSULTANT')]
     public function deleteCandidat(EntityManagerInterface $manager,Candidat $candidat):Response
     {
        $manager->remove($candidat);
@@ -134,6 +145,7 @@ class ConsultantController extends AbstractController
     }
 
     #[Route('consultant/annonce/','consultant.annonce', methods:['GET','POST'])]
+    #[IsGranted('ROLE_CONSULTANT')]
     public function annonce(AnnonceRepository $repository,PaginatorInterface $paginator,Request $request):Response
     {
 
@@ -149,6 +161,7 @@ class ConsultantController extends AbstractController
     }
 
     #[Route('consultant/annonce/edit/{id}','consultant.annonce.edit', methods:['GET','POST'])]
+    #[IsGranted('ROLE_CONSULTANT')]
     public function editAnnonces(Annonce $annonces, Request $request,EntityManagerInterface $manager):Response
     {
         $form = $this->createForm(ConsultantAnnonceType::class,$annonces);
