@@ -1,12 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}TRTConseil - Recruteur{% endblock %}
+{% block title %}TRTConseil - Consultant{% endblock %}
 
 {% block body %}
 {% if not recruteurs.items is same as ([]) %}
 <div class="container mt-4">
-<h1>Recruteur</h1>
 
+<div class="card my-3">
+        <h1 class="card-header">
+      Espace consultant
+        </h1>
+</div>
 {# <a href="{{path('ingredient.new')}}" class="btn btn-primary mb-4">Créer un ingrédient </a> #}
     {# {% for message in app.flashes('success') %}
       <div class="alert alert-success mt-4">
@@ -20,7 +24,11 @@
    ingédients totals
 </div> #}
 
-
+<div class="card my-1 border-primary">
+        <h3 class="card-header">
+       Profil recruteur
+        </h3>
+      </div>
 <table class="table table-hover mt-4">
   <thead>
     <tr>
@@ -35,21 +43,21 @@
   </thead>
   <tbody>
    {% for recruteur in recruteurs %}
-    <tr class="table-primary">
+    <tr class="table-dark">
       <th scope="row">{{recruteur.id}}</th>
       <td> {{recruteur.NameEntreprise}}</td>
       {% if recruteur.active %}
-       <td>   validé</td>
+         <td >  <h5 class="badge bg-primary fs-6 mr-5">Validé</h5> </td>
         {% else %}
-       <td>  non validé</td>
+        <td >  <h5 class="badge bg-primary fs-6 mr-5">Non Validé</h5> </td>
       {% endif %}
       <td> {{recruteur.adresseEntreprise}}</td>
  
       <td>
-        <a href="{{ path('consultant.recruteur.edit',{id : recruteur.id}) }}" class = "btn btn-info">Modifier</a>
+        <a href="{{ path('consultant.recruteur.edit',{id : recruteur.id}) }}" class = "btn btn-primary">Modifier</a>
       </td>
        <td>
-        <a href="{{path('consultant.recruteur.delete',{id : recruteur.id})}}" class = "btn btn-warning">suppression</a>
+        <a href="{{path('consultant.recruteur.delete',{id : recruteur.id})}}" class = "btn btn-primary">suppression</a>
       </td>
     </tr>
   {% endfor %}
@@ -59,7 +67,7 @@
     {{ knp_pagination_render(recruteurs) }}
 </div>
 {% else %}
-<h4>Il n'y a pas d'ingrédients</h4> #}
+<h4>Il n'y a pas d'ingrédients</h4> 
 {% endif %}
 </div>
 {% endblock %}

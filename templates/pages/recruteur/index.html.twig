@@ -5,7 +5,11 @@
 {% block body %}
 
 <div class="container mt-4">
-<h1>Espace recruteur</h1>
+<div class="card my-3">
+        <h1 class="card-header">
+       Espace recruteur
+        </h1>
+      </div>
 
 {% if recruteur.active %}
 <h1  class="badge bg-primary fs-6 mr-5">
@@ -26,8 +30,11 @@ Compte désactivé
       </div>
     {% endfor %} 
 
-
-<h1>Profil</h1>
+<div class="card my-1 border-primary">
+        <h3 class="card-header">
+       Profil
+        </h3>
+      </div>
 <table class="table table-hover mt-2">
   <thead>
     <tr>
@@ -37,24 +44,24 @@ Compte désactivé
       <th scope="col">adresse entreprise</th>
 
       <th scope="col">Edition</th>
-      <th scope="col">Annonces</th>
+     
     </tr>
   </thead>
   <tbody>
    
-    <tr class="table-primary">
+    <tr class="table-dark ">
       <th scope="row">{{recruteur.id}}</th>
       <td> {{recruteur.NameEntreprise}}</td>
       {% if recruteur.active %}
-       <td>   validé</td>
+       <td >  <h5 class="badge bg-primary fs-6 mr-5">Validé</h5> </td>
         {% else %}
-       <td>  non validé</td>
+         <td >  <h5 class="badge bg-primary fs-6 mr-5"> Non validé</h5> </td>
       {% endif %}
     
       <td> {{recruteur.adresseEntreprise}}</td>
  
       <td>
-        <a href="{{ path('recruteur.edit',{id : recruteur.id}) }}" class = "btn btn-info">Modifier</a>
+        <a href="{{ path('recruteur.edit',{id : recruteur.id}) }}" class = "btn btn-primary">Modifier</a>
       </td>
        {# <td>
         <a href="{{path('recruteur.annonce',{id : recruteur.id})}}" class = "btn btn-warning">annonces</a>
@@ -92,13 +99,14 @@ Compte désactivé
   </thead>
   <tbody>
    {% for annonce in annonces %}
-    <tr class="table-primary">
+    <tr class="table-dark">
       <th scope="row">{{annonce.id}}</th>
       <td> {{annonce.name}}</td>
       {% if annonce.active %}
-       <td>   validé</td>
+      <td >  <h5 class="badge bg-primary fs-6 mr-5">Validé</h5> </td>
         {% else %}
-       <td>  non validé</td>
+   <td >  <h5 class="badge bg-primary fs-6 mr-5"> Non validé</h5> </td>
+
       {% endif %}
      <td> {{annonce.intitulePoste}}</td>
     
@@ -108,10 +116,10 @@ Compte désactivé
         <a href="{{ path('recruteur.annonce.new',{id : id}) }}" class = "btn btn-info">créér</a>
       </td> #}
        <td>
-         <a href="{{ path('recruteur.annonce.edit',{id : id,id1 : annonce.id}) }}" class="btn btn-info">edit</a> 
+         <a href="{{ path('recruteur.annonce.edit',{id : id,id1 : annonce.id}) }}" class="btn btn-primary">edit</a> 
       </td>
         <td>
-         <a href="{{ path('recruteur.annonce.delete',{id : id,id1 : annonce.id}) }}" class="btn btn-info">delete</a> 
+         <a href="{{ path('recruteur.annonce.delete',{id : id,id1 : annonce.id}) }}" class="btn btn-primary">delete</a> 
       </td>
     </tr>
   {% endfor %}

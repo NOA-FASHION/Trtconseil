@@ -5,8 +5,11 @@
 {% block body %}
 {% if not candidats.items is same as ([]) %}
 <div class="container mt-4">
-<h1>Espace candidat</h1>
-
+<div class="card my-3">
+        <h1 class="card-header">
+      Espace consultant
+        </h1>
+</div>
 
      {% for message in app.flashes('success') %}
       <div class="alert alert-success mt-4">
@@ -14,8 +17,12 @@
       </div>
     {% endfor %} 
 
+<div class="card my-1 border-primary">
+        <h3 class="card-header">
+       Profil candidat
+        </h3>
+      </div>
 
-<h1>Profil</h1>
 <table class="table table-hover mt-2">
   <thead>
     <tr>
@@ -30,21 +37,21 @@
   </thead>
   <tbody>
    {% for candidat in candidats %}
-    <tr class="table-primary">
+    <tr class="table-dark">
       <th scope="row">{{candidat.id}}</th>
       <td> {{candidat.name}}</td>
          <td> {{candidat.lastname}}</td>
       {% if candidat.activation %}
-       <td>   validé</td>
+         <td >  <h5 class="badge bg-primary fs-6 mr-5">Validé</h5> </td>
         {% else %}
-       <td>  non validé</td>
+         <td >  <h5 class="badge bg-primary fs-6 mr-5">Non Validé</h5> </td>
       {% endif %}
     
       <td>
-        <a href="{{ path('consultant.candidat.edit',{id : candidat.id}) }}" class = "btn btn-info">Modifier</a>
+        <a href="{{ path('consultant.candidat.edit',{id : candidat.id}) }}" class = "btn btn-primary">Modifier</a>
       </td>
        <td>
-        <a href="{{path('consultant.candidat.delete',{id : candidat.id})}}" class = "btn btn-warning">suppression</a>
+        <a href="{{path('consultant.candidat.delete',{id : candidat.id})}}" class = "btn btn-primary">suppression</a>
       </td>
     </tr>
   {% endfor %}

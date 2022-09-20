@@ -12,7 +12,7 @@
       <p class="lead">
         TRTConseil est une agence de recrutement spécialisée dans l'hotellerie,
         elle propose cette appication pour permettre aux différents acteurs de
-        l'hotellerie de poiuvoir facielmeent changé.
+        l'hotellerie de pouvoir facilement échangé selon leurs besoins.
       </p>
       <hr class="my-4" />
       <p>
@@ -23,7 +23,7 @@
         <div class="contenaire">
           <div class="row">
           {% if is_granted('ROLE_RECRUTEUR') %}
-            <div class="col card text-white bg-info m-3"
+            <div class="col card text-white bg-primary m-3"
               style="max-width: 20rem;">
               <div class="card-header">
                 <a class="btn btn-danger" href="{{ path('recruteur.index') }}">
@@ -42,7 +42,7 @@
             </div>
                {% endif %}
             {% if is_granted('ROLE_CANDIDAT') %}
-              <div class="col card text-white bg-info m-3"
+              <div class="col card text-white bg-primary m-3"
                 style="max-width: 20rem;">
                 <div class="card-header">
                   <a class="btn btn-danger" href="{{ path('index.candidat') }}">
@@ -61,7 +61,7 @@
               </div>
             {% endif %}
             {% if is_granted('ROLE_CONSULTANT') %}
-              <div class="col card text-white bg-info m-3"
+              <div class="col card text-white bg-primary m-3"
                 style="max-width: 20rem;">
                 <div class="card-header">
                   <a class="btn btn-danger"
@@ -81,7 +81,7 @@
               </div>
             {% endif %}
             {% if is_granted('ROLE_ADMIN') %}
-              <div class="col card text-white bg-info m-3"
+              <div class="col card text-white bg-primary m-3"
                 style="max-width: 20rem;">
                 <div class="card-header">
                   <a class="btn btn-danger" href="{{ path('admin.index') }}">

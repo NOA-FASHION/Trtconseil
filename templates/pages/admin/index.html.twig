@@ -5,7 +5,11 @@
 {% block body %}
 {% if not consultants.items is same as ([]) %}
 <div class="container mt-4">
-<h1>Espace Admin</h1>
+<div class="card my-3">
+        <h1 class="card-header">
+      Espace Admin
+        </h1>
+</div>
 <a href="{{path('admin.new')}}" class="btn btn-primary mb-4">Créeation d'un consultant</a>
 
      {% for message in app.flashes('success') %}
@@ -14,8 +18,12 @@
       </div>
     {% endfor %} 
 
+<div class="card my-1 border-primary">
+        <h3 class="card-header">
+       Profil consultant
+        </h3>
+      </div>
 
-<h3>Profil consultant</h3>
 <table class="table table-hover mt-2">
   <thead>
     <tr>
@@ -29,7 +37,7 @@
   </thead>
   <tbody>
    {% for consultant in consultants %}
-    <tr class="table-primary">
+    <tr class="table-dark">
       <th scope="row">{{consultant.id}}</th>
       <td> {{consultant.email}}</td>
       <td> {{consultant.roles[0]}}</td>
@@ -37,14 +45,14 @@
 
  
       <td>
-        <a href="{{ path('admin.user.edit',{id : consultant.id}) }}" class = "btn btn-info">Modifier </a>
+        <a href="{{ path('admin.user.edit',{id : consultant.id}) }}" class = "btn btn-primary">Modifier </a>
       </td>
        <td>
-        <a href="{{path('admin.user.edit.password',{id : consultant.id})}}" class = "btn btn-warning">modifier password</a>
+        <a href="{{path('admin.user.edit.password',{id : consultant.id})}}" class = "btn btn-primary">modifier password</a>
       </td>
       
        <td>
-        <a href="{{path('admin.user.delete',{id : consultant.id})}}" class = "btn btn-warning">suppression</a>
+        <a href="{{path('admin.user.delete',{id : consultant.id})}}" class = "btn btn-primary">suppression</a>
       </td>
     </tr>
   {% endfor %}

@@ -13,7 +13,7 @@
     <div class="collapse navbar-collapse" id="navbarColor02">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link active" href="{{ path('home.index') }}">
+          <a class="nav-link active text-success" href="{{ path('home.index') }}">
             Home
             <span class="visually-hidden">(current)</span>
           </a>
@@ -38,7 +38,7 @@
             {% if app.user %}
          <li class="nav-item dropdown me-5">
         
-          <a class="nav-link dropdown-toggle"
+          <a class="nav-link dropdown-toggle text-success"
             data-bs-toggle="dropdown"
             href="#"
             role="button"
@@ -47,10 +47,10 @@
             {{app.user.email}}
           </a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{ path('user.edit',{id : app.user.id}) }}">Modifier informations</a>
-            <a class="dropdown-item" href="{{ path('user.edit.password',{id : app.user.id}) }}">Modifier mot de passe</a>
+            <a class="dropdown-item text-success" href="{{ path('user.edit',{id : app.user.id}) }}">Modifier informations</a>
+            <a class="dropdown-item text-success" href="{{ path('user.edit.password',{id : app.user.id}) }}">Modifier mot de passe</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{{ path('security.logout') }}">Déconnexion</a>
+            <a class="dropdown-item text-success" href="{{ path('security.logout') }}">Déconnexion</a>
             
           </div>
             

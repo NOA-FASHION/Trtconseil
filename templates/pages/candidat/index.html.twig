@@ -5,8 +5,11 @@
 {% block body %}
 
 <div class="container mt-4">
-<h1>Espace candidat</h1>
-
+<div class="card my-3">
+        <h1 class="card-header">
+      Espace candidat
+        </h1>
+</div>
 {% if candidat.activation %}
 <h1  class="badge bg-primary fs-6 mr-5">
 Compte Actif
@@ -24,7 +27,12 @@ Compte désactivé
     {% endfor %} 
 
 
-<h1>Profil</h1>
+<div class="card my-1 border-primary">
+        <h3 class="card-header">
+      Profil candidat
+        </h3>
+      </div>
+
 <table class="table table-hover mt-2">
   <thead>
     <tr>
@@ -34,30 +42,30 @@ Compte désactivé
       <th scope="col">Validation</th>
 
       <th scope="col">Edition</th>
-      <th scope="col">Annonces</th>
+     
     </tr>
   </thead>
   <tbody>
   
-    <tr class="table-primary">
+    <tr class="table-dark">
     
       <th scope="row">{{candidat.id}}</th>
       <td> {{candidat.name}}</td>
          <td> {{candidat.lastname}}</td>
       {% if candidat.activation %}
-       <td>   validé</td>
+         <td >  <h5 class="badge bg-primary fs-6 mr-5">Validé</h5> </td>
         {% else %}
-       <td>  non validé</td>
+       <td >  <h5 class="badge bg-primary fs-6 mr-5">Non Validé</h5> </td>
       {% endif %}
     
    
  
       <td>
-        <a href="{{ path('candidat.edit',{id : candidat.id}) }}" class = "btn btn-info">Modifier</a>
+        <a href="{{ path('candidat.edit',{id : candidat.id}) }}" class = "btn btn-primary">Modifier</a>
       </td>
-       <td>
+       {# <td>
         <a href="{{path('candidat.annonce')}}" class = "btn btn-warning">Annonces</a>
-      </td>
+      </td> #}
     </tr>
 
   </tbody>
@@ -73,7 +81,12 @@ Compte désactivé
 
 {% if candidat.activation %}
 
-<h1>Annonces en cours</h1>
+<div class="card my-1 border-primary">
+        <h3 class="card-header">
+   Annonces en cours
+        </h3>
+      </div>
+
 <table class="table table-hover mt-2">
   <thead>
     <tr>
@@ -89,13 +102,13 @@ Compte désactivé
   </thead>
   <tbody>
    {% for annonce in annonces %}
-    <tr class="table-primary">
+    <tr class="table-warning">
       <th scope="row">{{annonce.id}}</th>
       <td> {{annonce.name}}</td>
       {% if annonce.active %}
-       <td>   validé</td>
+        <td >  <h5 class="badge bg-primary fs-6 mr-5">Validé</h5> </td>
         {% else %}
-       <td>  non validé</td>
+     <td >  <h5 class="badge bg-primary fs-6 mr-5">Non Validé</h5> </td>
       {% endif %}
      <td> {{annonce.intitulePoste}}</td>
     
