@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\User;
 
 class ConsultantController extends AbstractController
 {
@@ -45,12 +46,16 @@ class ConsultantController extends AbstractController
     #[IsGranted('ROLE_CONSULTANT')]
     public function recruteur(UserRepository $repository1,RecruteurRepository $repository,PaginatorInterface $paginator,Request $request): Response
     {
+        
         $users = $repository1->findAll();
         $recruteurs = $paginator->paginate(
             $repository->findAll(), 
             $request->query->getInt('page', 1), /*page number*/
             5 /*limit per page*/
         );
+
+        // $recruteurUser = $repository->findRecruteursFromUser($users);
+        // dd($recruteurUser);
         return $this->render('pages/consultant/recruteur/index.html.twig', [
             'recruteurs' =>  $recruteurs ,
             'user'=>$users
@@ -108,7 +113,7 @@ class ConsultantController extends AbstractController
         ]);
     }
 
-    #[Route('candidat/candidat/edit/{id}','consultant.candidat.edit', methods:['GET','POST'])]
+    #[Route('consultant/candidat/edit/{id}','consultant.candidat.edit', methods:['GET','POST'])]
     #[IsGranted('ROLE_CONSULTANT')]
     public function editCandidat(Candidat $candidat, Request $request,EntityManagerInterface $manager):Response
     {

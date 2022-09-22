@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\User;
 use App\Entity\Annonce;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Annonce>
@@ -38,6 +39,8 @@ class AnnonceRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+  
 
 //    /**
 //     * @return Annonce[] Returns an array of Annonce objects

@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\User;
 use App\Entity\Recruteur;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Recruteur>
@@ -38,6 +39,28 @@ class RecruteurRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    // public function findRecruteursFromUser(User $user): array
+
+    // {
+
+    //     $queryBuilder = $this->createQueryBuilder('m')
+
+    //         ->join('m.userRecrutueur', 'u')
+
+    //         ->where('u.email = :email')
+
+    //         ->setParameter('email', $user->getEmail())
+
+    //     ;
+
+
+    //     $query = $queryBuilder->getQuery();
+
+
+    //     return $query->getResult();
+
+    // }
 
 //    /**
 //     * @return Recruteur[] Returns an array of Recruteur objects
