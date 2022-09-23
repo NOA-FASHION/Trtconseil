@@ -3,13 +3,15 @@
 TRT-CONSEIL
 Ce document est un guide de déploiement et un manuel d'utilisation 
 pour l'application TRT-CONSEIL dévéloppé dans le cadre de l'ECF d'entrainement ayant pour titre:
+<br/>
 **Développer la partie back-end d’une application web**
 de l'école STUDI.
 <br/>
 Selon le cahier des charges l'application demandé devra permettre aux acteurs de l'hotellerie de se confronté.
+<br/>
 TRT Conseil est une agence de recrutement spécialisée dans l’hôtellerie et la restauration qui souhaite dévelloper
  un outils ou les recruteurs pourrons proposé des postes de travail et les candidats pourronts y postuler, 
-tout cela sous l'administration des consultants de la boite
+tout cela sous l'administration des consultants de la boite.
 
 
 # Fonctionnalités de l'application
@@ -33,11 +35,11 @@ recruteurs et candidats.
 
 #### Utilisateur consernés: Recruteurs, candidats, consultants, administrateurs
 
-* Chaque type d'utilisateur posséderons un espace type spécifique
-* L'espace recruteurs donnera accés aux annonces qui appartiennent et à l'espace personnel de l'utilisateur de type recruteur
-* L'espace candidats donnera accés aux annonces qui seront activés et à l'espace personnel de l'utilisateur de type candidats
-* L'espace consultants donnera accés aux annonces, aux compte candidat et recruteur et à l'espace personnel de l'utilisateur de type consultant
-* L'espace administrateur permettra la gestion des comptes de type consultants
+* Chaque type d'utilisateur posséderons un espace type spécifique, qui sont l'espace candidat pour les candidats, l'espace partenaire pour les partenaires et l'espace consultant pour les consultant
+* L'espace recruteurs donnera accés aux annonces qui lui appartiennent 
+* L'espace candidats donnera accés aux annonces activés 
+* L'espace consultants donnera accés aux annonces, aux comptes candidats et aux comptes recruteurs 
+* L'espace administrateur permettra la gestion des comptes de type consultants.
 
 3.  ## Créer son compte
 
@@ -68,7 +70,7 @@ recruteurs et candidats.
 * Pour chaque offre qu’il a transmise, une liste des candidats validés par TRT Conseil et qui ont
 postulés à cette annonce sera visible par le recruteur. 
 
-6.  ## Postuler à une annonce
+7.  ## Postuler à une annonce
 
 #### Utilisateur consernés: candidats
 
@@ -76,7 +78,7 @@ postulés à cette annonce sera visible par le recruteur.
 * Si c’est approuvé, le recruteur concerné recevra un email avec le nom/prénom du candidat ainsi
 que son CV.
 
-6.  ## Activation annonce et candidature
+8.  ## Activation annonce et candidature
 
 #### Utilisateur consernés: consultant
 
