@@ -5,6 +5,7 @@ Ce document est un guide de déploiement et un manuel d'utilisation
 pour l'application TRT-CONSEIL dévéloppé dans le cadre de l'ECF d'entrainement ayant pour titre:
 **Développer la partie back-end d’une application web**
 de l'école STUDI.
+<br/>
 Selon le cahier des charges l'application demandé devra permettre aux acteurs de l'hotellerie de se confronté.
 TRT Conseil est une agence de recrutement spécialisée dans l’hôtellerie et la restauration qui souhaite dévelloper
  un outils ou les recruteurs pourrons proposé des postes de travail et les candidats pourronts y postuler, 
@@ -328,5 +329,30 @@ $ git push -u origin main
 ```
 ------
 # sécurisation de l'environement
+
+il est maintenant temps de mettre en place un pare-feu. Un pare-feu est essentiel lors de la configuration du VPS pour limiter le trafic indésirable sortant ou entrant dans votre VPS. Installez ufw et configurez un pare-feu pour autoriser les opérations SSH en faisant .
+
+## Installation du parefeu ufw
+```Terminal
+$ sudo apt install ufw -y
+```
+## configuration du parefeu
+
+```Terminal
+$ sudo ufw allow OpenSSH
+$ sudo ufw allow 443
+$ sudo ufw allow OpenSSH
+$ sudo ufw enable -y 
+```
+## Installation du fail2ban
+
+fail2ban est un logiciel qui se charge d'analyser les logs de divers services installés sur la machine, pour bannir automatiquement un hôte via iptables pour une durée déterminée, en cas d'échec après X tentatives.
+C'est un élément essentiel pour sécuriser son système, et éviter des intrusions via brute-force.
+
+```Terminal
+$ sudo apt install fail2ban
+```
+
+
 ------
 # mise en production de l'environement
