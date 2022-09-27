@@ -6,9 +6,11 @@ use App\Entity\Annonce;
 use App\Entity\Recruteur;
 use App\Form\RecruteurType;
 use App\Form\RecruteurAnnonceType;
+use App\Repository\UserRepository;
 use App\Repository\AnnonceRepository;
 use App\Repository\RecruteurRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\CandidatureRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -216,6 +218,22 @@ class RecruteurController extends AbstractController
            'Votre ingrédient à été supprimer avec succes !'
         );
         return $this->redirectToRoute('recruteur.annonce', ['id' =>$id ]);
+    }
+
+    #[Route('/recruteur/candidature/{id}', name: 'recruteur.candidature',methods:['GET'])]
+    #[IsGranted('ROLE_RECRUTEUR')]
+    public function candidature(int $id,RecruteurRepository $repository1,CandidatureRepository $repository,PaginatorInterface $paginator,Request $request): Response
+    {
+        
+        $recruteur = $repository1->findOneBy(["id"=>$id]);
+        $candidatures =  $repository->findBy(["annonce"=>$recruteur->getAnnonce()]);
+
+        // $recruteurUser = $repository->findRecruteursFromUser($users);
+        // dd($recruteurUser);
+        return $this->render('pages/recruteur/candidature/index.html.twig', [
+            'candidatures' =>  $candidatures ,
+            
+        ]);
     }
 
 }

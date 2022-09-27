@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  Symrecipe - title
+{% endblock %}
+
+{% block body %}
+  <div class="container mt-4">
+    <div class="jumbotron">
+      <h1 class="display-4">
+        Vous avez déja postulé a cette annonce.
+      </h1>
+        {% if candidature.isEnable %}
+          <h1 class="display-4">
+        votre candidature à été validé , une réponse vous sera bientôt envoyé.
+      </h1>
+
+        {% else %}
+       <h1 class="display-4">
+        votre candidature est en cours de validation
+      </h1>
+        {% endif %}
+      
+    </div>
+  </div>
+{% endblock %}

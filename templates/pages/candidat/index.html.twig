@@ -113,7 +113,7 @@ Compte désactivé
      <td> {{annonce.intitulePoste}}</td>
     
       <td>
-        <a href="#" class = "btn btn-info">Postulez</a>
+       <a href="{{ path('candidature.new',{id : candidat.id,id1 : annonce.id}) }}" class = "btn btn-primary">Postulez</a>
       </td>
 
 

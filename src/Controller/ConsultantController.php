@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Annonce;
 use App\Entity\Candidat;
 use App\Entity\Recruteur;
@@ -13,13 +14,13 @@ use App\Repository\AnnonceRepository;
 use App\Repository\CandidatRepository;
 use App\Repository\RecruteurRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\CandidatureRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Entity\User;
 
 class ConsultantController extends AbstractController
 {
@@ -185,6 +186,33 @@ class ConsultantController extends AbstractController
 
         return $this->render('pages/consultant/annonces/edit.html.twig',[
             'form' => $form->createView()
+        ]);
+    }
+
+
+     /**
+     * liste des recruteur inscris
+     *
+     * @param RecruteurRepository $repository
+     * @return Response
+     */
+    #[Route('/consultant/candidature', name: 'consultant.candidature',methods:['GET'])]
+    #[IsGranted('ROLE_CONSULTANT')]
+    public function candidature(UserRepository $repository1,CandidatureRepository $repository,PaginatorInterface $paginator,Request $request): Response
+    {
+        
+        $users = $repository1->findAll();
+        $candidatures = $paginator->paginate(
+            $repository->findAll(), 
+            $request->query->getInt('page', 1), /*page number*/
+            5 /*limit per page*/
+        );
+
+        // $recruteurUser = $repository->findRecruteursFromUser($users);
+        // dd($recruteurUser);
+        return $this->render('pages/consultant/candidature/index.html.twig', [
+            'candidatures' =>  $candidatures ,
+            'user'=>$users
         ]);
     }
 }

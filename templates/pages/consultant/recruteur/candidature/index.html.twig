@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TRTConseil - candidature{% endblock %}
+
+{% block body %}
+{# {% if not annonces.items is same as ([]) %} #}
+<div class="container mt-4">
+
+<div class="card my-3">
+        <h1 class="card-header">
+      Espace consultant
+        </h1>
+</div>
+ {# <a class="btn btn-primary btn-dark"  href="{{ path('recruteur.annonce.new',{id : id}) }}">nouvelle annonce</a> #}
+     {% for message in app.flashes('success') %}
+      <div class="alert alert-success mt-4">
+        {{ message }}
+      </div>
+    {% endfor %} 
+
+<div class="card my-1 border-primary">
+        <h3 class="card-header">
+      candidatures en cours
+        </h3>
+      </div>
+
+<table class="table table-hover mt-2">
+  <thead>
+    <tr>
+     <th scope="col">Numéro</th>
+
+      <th scope="col">Activation</th>
+
+
+
+      <th scope="col">Editer</th>
+      <th scope="col">supprimer</th>
+    </tr>
+  </thead>
+  <tbody>
+   {% for candidature in candidatures %}
+    <tr class="table-dark">
+      <th scope="row">{{candidature.id}}</th>
+     
+      {% if candidature.isEnable %}
+          <td >  <h5 class="badge bg-primary fs-6 mr-5">Validé</h5> </td>
+        {% else %}
+         <td >  <h5 class="badge bg-primary fs-6 mr-5">Non Validé</h5> </td>
+      {% endif %}
+  
+    
+
+{#  
+      <td>
+        <a href="{{ path('recruteur.annonce.new',{id : id}) }}" class = "btn btn-info">créér</a>
+      </td> #}
+       <td>
+         {# <a href="{{ path('consultant.annonce.edit',{id :annonce.id}) }}" class="btn btn-primary">edit</a>  #}
+      </td>
+        <td>
+         {# <a href="{{ path('recruteur.annonce.delete',{id : id,id1 : annonce.id}) }}" class="btn btn-info">delete</a>  #}
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+<div class="navigation d-flex justify-content-center mt-4">
+    {{ knp_pagination_render(candidatures) }}
+</div>
+{# {% else %}
+<h4>Il n'y a pas d'ingrédients</h4> #}
+{# {% endif %} #} 
+</div>
+{% endblock %}

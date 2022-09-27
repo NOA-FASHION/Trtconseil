@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CandidatRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: CandidatRepository::class)]
@@ -29,6 +31,14 @@ class Candidat
 
     #[ORM\OneToOne(inversedBy: 'candidat', cascade: ['persist', 'remove'])]
     private ?User $userCandidat = null;
+
+    #[ORM\OneToMany(mappedBy: 'candidat', targetEntity: Candidature::class)]
+    private Collection $candidature;
+
+    public function __construct()
+    {
+        $this->candidature = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -91,6 +101,36 @@ class Candidat
     public function setUserCandidat(?User $userCandidat): self
     {
         $this->userCandidat = $userCandidat;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Candidature>
+     */
+    public function getCandidature(): Collection
+    {
+        return $this->candidature;
+    }
+
+    public function addCandidature(Candidature $candidature): self
+    {
+        if (!$this->candidature->contains($candidature)) {
+            $this->candidature->add($candidature);
+            $candidature->setCandidat($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidature(Candidature $candidature): self
+    {
+        if ($this->candidature->removeElement($candidature)) {
+            // set the owning side to null (unless already changed)
+            if ($candidature->getCandidat() === $this) {
+                $candidature->setCandidat(null);
+            }
+        }
 
         return $this;
     }

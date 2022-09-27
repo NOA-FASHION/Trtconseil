@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AnnonceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AnnonceRepository::class)]
@@ -39,6 +41,14 @@ class Annonce
 
     #[ORM\ManyToOne(inversedBy: 'annonces')]
     private ?User $useAnnonce = null;
+
+    #[ORM\OneToMany(mappedBy: 'annonce', targetEntity: Candidature::class)]
+    private Collection $candidature;
+
+    public function __construct()
+    {
+        $this->candidature = new ArrayCollection();
+    }
 
    
 
@@ -151,6 +161,36 @@ class Annonce
     public function setUseAnnonce(?User $useAnnonce): self
     {
         $this->useAnnonce = $useAnnonce;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Candidature>
+     */
+    public function getCandidature(): Collection
+    {
+        return $this->candidature;
+    }
+
+    public function addCandidature(Candidature $candidature): self
+    {
+        if (!$this->candidature->contains($candidature)) {
+            $this->candidature->add($candidature);
+            $candidature->setAnnonce($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidature(Candidature $candidature): self
+    {
+        if ($this->candidature->removeElement($candidature)) {
+            // set the owning side to null (unless already changed)
+            if ($candidature->getAnnonce() === $this) {
+                $candidature->setAnnonce(null);
+            }
+        }
 
         return $this;
     }
