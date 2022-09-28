@@ -92,7 +92,7 @@ Compte désactivé
       <th scope="col">Activation</th>
       <th scope="col">intitulé du poste</th>
 
-
+ <th scope="col">cendidature</th>
       <th scope="col">Editer</th>
       <th scope="col">supprimer</th>
     </tr>
@@ -111,10 +111,10 @@ Compte désactivé
      <td> {{annonce.intitulePoste}}</td>
     
 
-{#  
+
       <td>
-        <a href="{{ path('recruteur.annonce.new',{id : id}) }}" class = "btn btn-info">créér</a>
-      </td> #}
+        <a href="{{ path('recruteur.candidature',{id : annonce.id}) }}" class = "btn btn-primary">Candidature</a>
+      </td> 
        <td>
          <a href="{{ path('recruteur.annonce.edit',{id : id,id1 : annonce.id}) }}" class="btn btn-primary">edit</a> 
       </td>

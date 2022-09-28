@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Candidat;
 use App\Entity\Candidature;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Candidature>
@@ -38,6 +39,8 @@ class CandidatureRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+
 
 //    /**
 //     * @return Candidature[] Returns an array of Candidature objects

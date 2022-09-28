@@ -8,6 +8,7 @@ use App\Form\RecruteurType;
 use App\Form\RecruteurAnnonceType;
 use App\Repository\UserRepository;
 use App\Repository\AnnonceRepository;
+use App\Repository\CandidatRepository;
 use App\Repository\RecruteurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CandidatureRepository;
@@ -222,17 +223,27 @@ class RecruteurController extends AbstractController
 
     #[Route('/recruteur/candidature/{id}', name: 'recruteur.candidature',methods:['GET'])]
     #[IsGranted('ROLE_RECRUTEUR')]
-    public function candidature(int $id,RecruteurRepository $repository1,CandidatureRepository $repository,PaginatorInterface $paginator,Request $request): Response
+    public function candidature(int $id,AnnonceRepository $repository1,CandidatureRepository $repository,CandidatRepository $repository3): Response
     {
         
-        $recruteur = $repository1->findOneBy(["id"=>$id]);
-        $candidatures =  $repository->findBy(["annonce"=>$recruteur->getAnnonce()]);
+        $annonce = $repository1->findOneBy(["id"=>$id]);
 
+       
+
+        $candidatures =  $repository->findOneBy(["annonce"=>$id]);
+
+    
+     
+        dd($candidatures);
+
+        $annonceCandidature = $repository3->findMessagesFromUser($candidatures);
+       
+        // dd($annonceCandidature);
         // $recruteurUser = $repository->findRecruteursFromUser($users);
         // dd($recruteurUser);
         return $this->render('pages/recruteur/candidature/index.html.twig', [
             'candidatures' =>  $candidatures ,
-            
+            'candidats'=>$annonceCandidature
         ]);
     }
 

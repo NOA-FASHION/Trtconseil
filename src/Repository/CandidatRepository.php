@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Candidat;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\Candidature;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Candidat>
@@ -37,6 +38,29 @@ class CandidatRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findMessagesFromUser(Candidature $candidature): array
+
+    {
+
+        $queryBuilder = $this->createQueryBuilder('c')
+            ->select('c.name, u.isEnable,u.id')
+
+            ->leftjoin('c.candidature', 'u')
+
+            ->where('c.id = :idCandidat')
+
+            ->setParameter('idCandidat', $candidature->getCandidat())
+
+        ;
+
+
+        $query = $queryBuilder->getQuery();
+
+
+        return $query->getResult();
+
     }
 
 //    /**

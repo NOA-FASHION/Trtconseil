@@ -198,21 +198,20 @@ class ConsultantController extends AbstractController
      */
     #[Route('/consultant/candidature', name: 'consultant.candidature',methods:['GET'])]
     #[IsGranted('ROLE_CONSULTANT')]
-    public function candidature(UserRepository $repository1,CandidatureRepository $repository,PaginatorInterface $paginator,Request $request): Response
+    public function candidature(CandidatRepository $repository3,UserRepository $repository1,CandidatureRepository $repository,PaginatorInterface $paginator,Request $request): Response
     {
         
-        $users = $repository1->findAll();
-        $candidatures = $paginator->paginate(
-            $repository->findAll(), 
-            $request->query->getInt('page', 1), /*page number*/
-            5 /*limit per page*/
-        );
+      
+        $candidatures = $repository->findAll();
+
+   
+        $annonceCandidature = $repository3->findMessagesFromUser($candidatures);
 
         // $recruteurUser = $repository->findRecruteursFromUser($users);
         // dd($recruteurUser);
         return $this->render('pages/consultant/candidature/index.html.twig', [
-            'candidatures' =>  $candidatures ,
-            'user'=>$users
+            'candidats'=>$annonceCandidature
+           
         ]);
     }
 }

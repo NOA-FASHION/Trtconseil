@@ -28,8 +28,9 @@ class CandidatureController extends AbstractController
         $candidat = $repository->findOneBy(['id' => $id]);
         $annonce = $repository1->findOneBy(['id' => $id1]);
         $candidature = $repository2->findOneBy(['candidat' => $id]);
-
-        if ($candidature === null) {
+        $candidature2 = $repository2->findOneBy(['annonce' => $id1]);
+      
+        if ($candidature === null || $candidature2 === null) {
             $candidature = new Candidature();
             $candidature->setIsEnable(false);
             $candidature->setCandidat($candidat);
