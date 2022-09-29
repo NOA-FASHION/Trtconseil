@@ -34,6 +34,8 @@ class CandidatController extends AbstractController
         if($candidat === null){
             return $this->redirectToRoute('candidat.new');
         }
+        
+
         $annonces = $paginator->paginate(
             $repository1->findBy(["active"=>true]), 
             $request->query->getInt('page', 1), /*page number*/

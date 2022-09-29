@@ -33,6 +33,7 @@
   <thead>
     <tr>
      <th scope="col">Numéro</th>
+     <th scope="col">Email</th>
       <th scope="col">nom de l'entreprise</th>
       <th scope="col">Activation</th>
       <th scope="col">adresse entreprise</th>
@@ -45,6 +46,7 @@
    {% for recruteur in recruteurs %}
     <tr class="table-dark">
       <th scope="row">{{recruteur.id}}</th>
+       <td> {{recruteur.email}}</td>
       <td> {{recruteur.NameEntreprise}}</td>
       {% if recruteur.active %}
          <td >  <h5 class="badge bg-primary fs-6 mr-5">Validé</h5> </td>

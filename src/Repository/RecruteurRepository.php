@@ -40,6 +40,20 @@ class RecruteurRepository extends ServiceEntityRepository
         }
     }
 
+
+    public function findAllRecruteurforUser()
+    {
+        return $this->createQueryBuilder('r')
+           
+            ->addSelect('u as USER')
+            ->join('r.userRecrutueur', 'u')
+            -> select('u.email','r.NameEntreprise','r.adresseEntreprise','r.id','r.active')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
     // public function findRecruteursFromUser(User $user): array
 
     // {

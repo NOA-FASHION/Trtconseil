@@ -223,26 +223,24 @@ class RecruteurController extends AbstractController
 
     #[Route('/recruteur/candidature/{id}', name: 'recruteur.candidature',methods:['GET'])]
     #[IsGranted('ROLE_RECRUTEUR')]
-    public function candidature(int $id,AnnonceRepository $repository1,CandidatureRepository $repository,CandidatRepository $repository3): Response
+    public function candidature(int $id,AnnonceRepository $repository1,CandidatRepository $repository3): Response
     {
         
         $annonce = $repository1->findOneBy(["id"=>$id]);
+    //     dd($annonce->getCandidat());
+    //    $candidat = $repository3->findBy(["id"=> $annonce->getCandidat()]);
+    //     dd($candidat);
 
        
-
-        $candidatures =  $repository->findOneBy(["annonce"=>$id]);
-
-    
-     
-        dd($candidatures);
-
-        $annonceCandidature = $repository3->findMessagesFromUser($candidatures);
-       
+        
+        $annonceCandidature = $repository3->findAllCandidatforAnnonce($annonce);
+         
+        
         // dd($annonceCandidature);
         // $recruteurUser = $repository->findRecruteursFromUser($users);
         // dd($recruteurUser);
         return $this->render('pages/recruteur/candidature/index.html.twig', [
-            'candidatures' =>  $candidatures ,
+           
             'candidats'=>$annonceCandidature
         ]);
     }

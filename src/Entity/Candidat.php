@@ -35,9 +35,13 @@ class Candidat
     #[ORM\OneToMany(mappedBy: 'candidat', targetEntity: Candidature::class)]
     private Collection $candidature;
 
+    #[ORM\ManyToMany(targetEntity: Annonce::class, inversedBy: 'candidat')]
+    private Collection $annonces;
+
     public function __construct()
     {
         $this->candidature = new ArrayCollection();
+        $this->annonces = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -130,6 +134,33 @@ class Candidat
             if ($candidature->getCandidat() === $this) {
                 $candidature->setCandidat(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Annonce>
+     */
+    public function getAnnonces(): Collection
+    {
+        return $this->annonces;
+    }
+
+    public function addAnnonce(Annonce $annonce): self
+    {
+        if (!$this->annonces->contains($annonce)) {
+            $this->annonces->add($annonce);
+            $annonce->addCandidat($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnnonce(Annonce $annonce): self
+    {
+        if ($this->annonces->removeElement($annonce)) {
+            $annonce->removeCandidat($this);
         }
 
         return $this;

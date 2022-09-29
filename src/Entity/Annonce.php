@@ -45,9 +45,13 @@ class Annonce
     #[ORM\OneToMany(mappedBy: 'annonce', targetEntity: Candidature::class)]
     private Collection $candidature;
 
+    #[ORM\ManyToMany(targetEntity: Candidat::class,mappedBy : 'annonces')]
+    private Collection $candidat;
+
     public function __construct()
     {
         $this->candidature = new ArrayCollection();
+        $this->candidat = new ArrayCollection();
     }
 
    
@@ -191,6 +195,30 @@ class Annonce
                 $candidature->setAnnonce(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Candidat>
+     */
+    public function getCandidat(): Collection
+    {
+        return $this->candidat;
+    }
+
+    public function addCandidat(Candidat $candidat): self
+    {
+        if (!$this->candidat->contains($candidat)) {
+            $this->candidat->add($candidat);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidat(Candidat $candidat): self
+    {
+        $this->candidat->removeElement($candidat);
 
         return $this;
     }

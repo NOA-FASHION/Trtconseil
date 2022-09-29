@@ -4,8 +4,11 @@ namespace App\Repository;
 
 use App\Entity\User;
 use App\Entity\Annonce;
+use App\Entity\Candidature;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\Candidat;
+use Doctrine\ORM\Query\Expr\Andx;
 
 /**
  * @extends ServiceEntityRepository<Annonce>
@@ -40,6 +43,19 @@ class AnnonceRepository extends ServiceEntityRepository
         }
     }
 
+
+   
+   
+    public function findAllCoursByProject(Candidat $candidat)
+    {
+        return $this->createQueryBuilder('a')
+            ->join('a.candidats', 'c')
+            ->where('c = :candidat')
+            ->setParameter('candidat', $candidat)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
   
 
 //    /**

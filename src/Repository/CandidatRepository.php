@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use App\Entity\User;
+use App\Entity\Annonce;
 use App\Entity\Candidat;
 use App\Entity\Candidature;
 use Doctrine\Persistence\ManagerRegistry;
@@ -40,27 +42,42 @@ class CandidatRepository extends ServiceEntityRepository
         }
     }
 
-    public function findMessagesFromUser(Candidature $candidature): array
 
+    public function findAllCandidatforUser()
     {
-
-        $queryBuilder = $this->createQueryBuilder('c')
-            ->select('c.name, u.isEnable,u.id')
-
-            ->leftjoin('c.candidature', 'u')
-
-            ->where('c.id = :idCandidat')
-
-            ->setParameter('idCandidat', $candidature->getCandidat())
-
+        return $this->createQueryBuilder('c')
+           
+            ->addSelect('u as USER')
+            ->join('c.userCandidat', 'u')
+            -> select('u.email','c.name','c.activation','c.id','c.lastname')
+            ->getQuery()
+            ->getResult()
         ;
+    }
 
+  
 
-        $query = $queryBuilder->getQuery();
-
-
-        return $query->getResult();
-
+    public function findAllCandidatforAnnonce(Annonce $annonce)
+    {
+        return $this->createQueryBuilder('c')
+            ->join('c.annonces', 'a')
+            ->where('a = :annonce')
+            ->setParameter('annonce', $annonce)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    public function findCandidatforAnnonce(Annonce $annonce,int $id)
+    {
+        return $this->createQueryBuilder('c')
+            ->join('c.annonces', 'a')
+            ->where('a = :annonce')
+            ->andWhere('c.id = :id')
+            ->setParameter('annonce', $annonce)
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
     }
 
 //    /**

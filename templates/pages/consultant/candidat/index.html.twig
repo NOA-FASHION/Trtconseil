@@ -27,6 +27,7 @@
   <thead>
     <tr>
      <th scope="col">Numéro</th>
+     <th scope="col">Email</th>
       <th scope="col">Nom du candidat</th>
       <th scope="col">Prenom</th>
       <th scope="col">Validation</th>
@@ -39,6 +40,7 @@
    {% for candidat in candidats %}
     <tr class="table-dark">
       <th scope="row">{{candidat.id}}</th>
+      <td> {{candidat.email}}</td>
       <td> {{candidat.name}}</td>
          <td> {{candidat.lastname}}</td>
       {% if candidat.activation %}

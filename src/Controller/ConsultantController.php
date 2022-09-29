@@ -47,10 +47,11 @@ class ConsultantController extends AbstractController
     #[IsGranted('ROLE_CONSULTANT')]
     public function recruteur(UserRepository $repository1,RecruteurRepository $repository,PaginatorInterface $paginator,Request $request): Response
     {
-        
-        $users = $repository1->findAll();
+        //  $userRcruteur=$repository->findAllRecruteurforUser();
+        // dd($userRcruteur);
+        // $users = $repository1->findAll();
         $recruteurs = $paginator->paginate(
-            $repository->findAll(), 
+            $repository->findAllRecruteurforUser(), 
             $request->query->getInt('page', 1), /*page number*/
             5 /*limit per page*/
         );
@@ -59,7 +60,7 @@ class ConsultantController extends AbstractController
         // dd($recruteurUser);
         return $this->render('pages/consultant/recruteur/index.html.twig', [
             'recruteurs' =>  $recruteurs ,
-            'user'=>$users
+            
         ]);
     }
 
@@ -103,8 +104,12 @@ class ConsultantController extends AbstractController
     #[IsGranted('ROLE_CONSULTANT')]
     public function candidat(CandidatRepository $repository,PaginatorInterface $paginator,Request $request): Response
     {
+        
+
+        // $userCandidat=$repository->findAllCandidatforUser();
+       
         $candidat = $paginator->paginate(
-            $repository->findAll(), 
+            $repository->findAllCandidatforUser(), 
             $request->query->getInt('page', 1), /*page number*/
             5 /*limit per page*/
         );

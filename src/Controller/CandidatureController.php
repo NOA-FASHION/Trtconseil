@@ -27,36 +27,31 @@ class CandidatureController extends AbstractController
        
         $candidat = $repository->findOneBy(['id' => $id]);
         $annonce = $repository1->findOneBy(['id' => $id1]);
-        $candidature = $repository2->findOneBy(['candidat' => $id]);
-        $candidature2 = $repository2->findOneBy(['annonce' => $id1]);
+        $annonceCandidature = $repository->findCandidatforAnnonce($annonce,$id);
       
-        if ($candidature === null || $candidature2 === null) {
-            $candidature = new Candidature();
-            $candidature->setIsEnable(false);
-            $candidature->setCandidat($candidat);
-            $candidature->setAnnonce($annonce);
-            $manager->persist($candidature);
+
+        if ($candidat == $annonceCandidature) {
+            return $this->redirectToRoute('candidature.postule', ['id' =>$id ]);
+        }else{$candidat->addAnnonce($annonce);
+           
+            $manager->persist($candidat);
             $manager->flush();
             $this->addFlash(
                 'success',
                 'Votre candidature à été crée avec succes !'
             );
-            return $this->redirectToRoute('index.candidat');
-        }else{
-            return $this->redirectToRoute('candidature.postule', ['id' =>$id ]);
-        }
+            return $this->redirectToRoute('index.candidat');}
+            
+            
+     
     }
 
     #[Route('candidature/postule/{id}','candidature.postule', methods:['GET','POST'])]
     
-    public function annonce(CandidatureRepository $repository2,int $id):Response
+    public function annonce(CandidatRepository $repository,int $id):Response
     {
-        $candidature = $repository2->findOneBy(['candidat' => $id]);
+        
 
-        return $this->render('pages/candidature/index.html.twig',[
-            
-            'candidature' => $candidature
-
-        ]);
+        return $this->render('pages/candidature/index.html.twig');
     }
 }

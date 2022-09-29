@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Annonce;
 use App\Entity\Candidat;
 use App\Entity\Candidature;
 use Doctrine\Persistence\ManagerRegistry;
@@ -38,6 +39,30 @@ class CandidatureRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+
+    public function findMessagesFromUser(Annonce $annonce): array
+
+    {
+
+        $queryBuilder = $this->createQueryBuilder('c')
+            ->select('c.id,c.isEnable, a.id')
+
+            ->leftjoin('c.annonce', 'a')
+
+            ->where('c.id = :idCandidature')
+
+            ->setParameter('idCandidature', $annonce->getCandidature())
+
+        ;
+
+
+        $query = $queryBuilder->getQuery();
+
+
+        return $query->getResult();
+
     }
 
 
