@@ -60,9 +60,12 @@ class CandidatRepository extends ServiceEntityRepository
     public function findAllCandidatforAnnonce(Annonce $annonce)
     {
         return $this->createQueryBuilder('c')
+            ->addSelect('u as USER')
             ->join('c.annonces', 'a')
+            ->join('c.userCandidat', 'u')
             ->where('a = :annonce')
             ->setParameter('annonce', $annonce)
+            -> select('u.email','c.name' ,'c.id','a.intitulePoste')
             ->getQuery()
             ->getResult()
         ;

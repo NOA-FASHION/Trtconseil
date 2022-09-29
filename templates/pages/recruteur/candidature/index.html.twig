@@ -27,10 +27,11 @@
 <table class="table table-hover mt-2">
   <thead>
     <tr>
-     <th scope="col">Numéro de candidature</th>
+     <th scope="col">Numéro candidat</th>
 
       <th scope="col">Nom du candidat</th>
- <th scope="col">activation de la candidature</th>
+      <th scope="col">Mail</th>
+      <th scope="col">intitulé du poste </th>
 
 
       {# <th scope="col">Editer</th>
@@ -42,12 +43,9 @@
     <tr class="table-dark">
       <th scope="row">{{candidat.id}}</th>
       <td> {{candidat.name}}</td>
-      {% if candidat.isActivation %}
-          <td >  <h5 class="badge bg-primary fs-6 mr-5">Validé</h5> </td>
-        {% else %}
-         <td >  <h5 class="badge bg-primary fs-6 mr-5">Non Validé</h5> </td>
-      {% endif %}
-  
+       <td> {{candidat.email}}</td>
+   
+   <td> {{candidat.intitulePoste}}</td>
     
    
 

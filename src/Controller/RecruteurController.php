@@ -234,11 +234,7 @@ class RecruteurController extends AbstractController
        
         
         $annonceCandidature = $repository3->findAllCandidatforAnnonce($annonce);
-         
-        
-        // dd($annonceCandidature);
-        // $recruteurUser = $repository->findRecruteursFromUser($users);
-        // dd($recruteurUser);
+  
         return $this->render('pages/recruteur/candidature/index.html.twig', [
            
             'candidats'=>$annonceCandidature

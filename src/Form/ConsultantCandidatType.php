@@ -53,7 +53,7 @@ class ConsultantCandidatType extends AbstractType
                     'class' =>'form-check-input',
                 ],
                 'required'=> false,
-                'label' => 'activationPartenaire',
+                'label' => 'activation candidat',
                 'label_attr' =>[
                     'class'=> 'form-check-label '
                 ],
