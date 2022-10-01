@@ -2,9 +2,12 @@
 
 {% block body %}
   <div class="container">
-    <h1>
-      modifier d'un consultant
-    </h1>
+  <div class="card border-primary my-3">
+        <h1 class="card-header">
+  modifier d'un consultant
+        </h1>
+</div>
+ 
 
      {% for message in app.flashes('success') %}
       <div class="alert alert-success mt-4">

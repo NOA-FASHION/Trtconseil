@@ -85,7 +85,7 @@ class AdminController extends AbstractController
                 $manager->flush();
                 $this->addFlash(
                     'success',
-                    'Les modifications de votre compte ont été modifiés'
+                    'Les modifications de votre compte ont été éffectués'
                 );
                 return $this->redirectToRoute('user.index');
             }else{

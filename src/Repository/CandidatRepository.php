@@ -65,7 +65,7 @@ class CandidatRepository extends ServiceEntityRepository
             ->join('c.userCandidat', 'u')
             ->where('a = :annonce')
             ->setParameter('annonce', $annonce)
-            -> select('u.email','c.name' ,'c.id','a.intitulePoste')
+            -> select('u.email','c.name' ,'c.id','c.cvLien','a.intitulePoste')
             ->getQuery()
             ->getResult()
         ;

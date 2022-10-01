@@ -2,10 +2,12 @@
 
 {% block body %}
   <div class="container">
-    <h1>
-      modifier les informations du partenaire
-    </h1>
 
+<div class="card my-1 border-primary">
+        <h3 class="card-header">
+         modifier les informations du partenaire
+        </h3>
+      </div>
      {% for message in app.flashes('success') %}
       <div class="alert alert-success mt-4">
         {{ message }}
@@ -36,7 +38,13 @@
         {{ form_errors(form.adresseEntreprise) }}
       </div>
     </div>
-
+    <div class="form-check ">
+      {{ form_label(form.submit) }}
+      {{ form_widget(form.submit) }}
+     
+    </div>
+  
+  {{ form_row(form._token) }}
    
   </div>
   {{ form_end(form) }}

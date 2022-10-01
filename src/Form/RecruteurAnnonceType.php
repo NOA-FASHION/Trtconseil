@@ -122,7 +122,7 @@ class RecruteurAnnonceType extends AbstractType
             'attr'=>[
                 'class' => 'btn btn-primary m-5'
             ],
-            'label' =>'créer Annonce'
+            'label' =>'Valider'
            ]) ;
 
         ;

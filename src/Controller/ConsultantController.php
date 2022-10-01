@@ -76,7 +76,7 @@ class ConsultantController extends AbstractController
             $manager->flush();
             $this->addFlash(
                 'success',
-                'Votre ingrédient à été modifier avec succes !'
+                'Le recruteur à été modifier avec succes !'
              );
              return $this->redirectToRoute('consultant.recruteur');
              
@@ -95,7 +95,7 @@ class ConsultantController extends AbstractController
        $manager->flush();
        $this->addFlash(
            'success',
-           'Votre ingrédient à été supprimer avec succes !'
+           'Le recruteur  à été supprimer avec succes !'
         );
         return $this->redirectToRoute('consultant.recruteur');
     }
@@ -131,7 +131,7 @@ class ConsultantController extends AbstractController
             $manager->flush();
             $this->addFlash(
                 'success',
-                'Votre ingrédient à été modifier avec succes !'
+                'Le candidat à été modifier avec succes !'
              );
              return $this->redirectToRoute('consultant.candidat');
              
@@ -150,7 +150,7 @@ class ConsultantController extends AbstractController
        $manager->flush();
        $this->addFlash(
            'success',
-           'Votre ingrédient à été supprimer avec succes !'
+           'Le candidat à été supprimer avec succes !'
         );
         return $this->redirectToRoute('consultant.candidat');
     }

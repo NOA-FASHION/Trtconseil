@@ -8,7 +8,7 @@
 
 <div class="card my-3">
         <h1 class="card-header">
-      Espace consultant
+      Espace recruteur
         </h1>
 </div>
  {# <a class="btn btn-primary btn-dark"  href="{{ path('recruteur.annonce.new',{id : id}) }}">nouvelle annonce</a> #}
@@ -24,7 +24,7 @@
         </h3>
       </div>
 
-<table class="table table-hover mt-2">
+<table class="table table-striped mt-2">
   <thead>
     <tr>
      <th scope="col">Numéro candidat</th>
@@ -32,6 +32,7 @@
       <th scope="col">Nom du candidat</th>
       <th scope="col">Mail</th>
       <th scope="col">intitulé du poste </th>
+      <th scope="col">Lien CV </th>
 
 
       {# <th scope="col">Editer</th>
@@ -46,7 +47,7 @@
        <td> {{candidat.email}}</td>
    
    <td> {{candidat.intitulePoste}}</td>
-    
+    <td><a href="{{ asset('uploads/brochures/' ~ candidat.cvLien) }}" class = "btn btn-info"> CV (PDF)</a></td>
    
 
 {#  

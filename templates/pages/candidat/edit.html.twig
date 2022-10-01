@@ -2,10 +2,12 @@
 
 {% block body %}
   <div class="container">
-    <h1>
-      Création d'un candidat
-    </h1>
 
+<div class="card border-primary my-3">
+        <h1 class="card-header">
+     Modifier vos informations
+        </h1>
+</div>
      {% for message in app.flashes('success') %}
       <div class="alert alert-success mt-4">
         {{ message }}
@@ -37,7 +39,13 @@
         {{ form_errors(form.cvLien) }}
       </div>
     </div>
-
+    <div class="form-check ">
+      {{ form_label(form.submit) }}
+      {{ form_widget(form.submit) }}
+     
+    </div>
+  
+  {{ form_row(form._token) }}
    
   </div>
   {{ form_end(form) }}

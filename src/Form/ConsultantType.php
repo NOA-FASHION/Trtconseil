@@ -51,7 +51,7 @@ class ConsultantType extends AbstractType
                 'attr'=>[
                     'class' => 'btn btn-primary m-5'
                 ],
-                'label' =>'créer candidat'
+                'label' =>'Valider'
                ]) ;
         ;
     }
