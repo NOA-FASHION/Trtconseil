@@ -33,6 +33,7 @@ class CandidatureController extends AbstractController
         $candidat = $repository->findOneBy(['id' => $id]);
         $annonce = $repository1->findOneBy(['id' => $id1]);
         $annonceCandidature = $repository->findCandidatforAnnonce($annonce,$id);
+        
          /**
         * @var User
          */
@@ -59,6 +60,7 @@ class CandidatureController extends AbstractController
                 ->context([
                 'expiration_date' => new \DateTime('+7 days'),
                 'candidat' => $candidat,
+                'annonce'=>$annonce
                 ]);
 
             $mailer->send($email);
