@@ -76,7 +76,22 @@ class RegistrationType extends AbstractType
                     'class' => 'form-label  mt-4'
                 ]
             ],
-            'invalid_message' => 'Les mots de passe ne correspondent pas.'
+            'invalid_message' => 'Les mots de passe ne correspondent pas.',
+            'constraints' => [
+                new Assert\NotBlank(),
+                new Assert\Length([
+                    'min' => 8,
+                    'max' => 200,
+                    'minMessage' =>
+                        'Your password must be at least {{ limit }} characters long.',
+                    'maxMessage' =>
+                        'Your password cannot be longer than {{ limit }} characters.',
+                ]),
+                new Assert\NotCompromisedPassword([
+                    'message' => 'Mot de passe trop simple',
+                ]),
+            
+            ],
         ])
         ->add('submit', SubmitType::class, [
             'attr' => [

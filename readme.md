@@ -330,9 +330,118 @@ $ git branch -M main
 $ git push -u origin main
 ```
 ------
+# mise en production de l'environement
+
+## Installation des dépendances
+
+```Terminal
+$ sudo symfony composer install
+```
+
+## Connexion de symfony à la base de données et paramétrage du MailerDSN pour le routage des emails
+Cela se fait en rentrant les paramètre de connexion dans le fichier .env qui se trouve à la racine du porjet
+
+
+## création de la base des tables et des données factices
+
+```Terminal
+$ php bin/console doctrine:migration:migrate
+$ php bin/console doctrine:fixtures:load
+```
+## Modification de la variable d'environement en prod
+```VsCode 
+APP_ENV=prod
+```
+## publication en ligne du site
+
+Pour rendre votre site accessible sur le port web (443) vous devez installer un reverse proxy. nginx est le serveur HTTP et reverse proxy le plus connu.
+```Terminal
+$ sudo apt-get update
+$ sudo apt-get install -y nginx
+```
+### installer un certificat valide
+Apres avoir télécharge et configurer un certificat sur ZeroSsl.com, créer un dossier /etc/nginx/certificat/
+et copier le certificat dans ce dossier.
+
+### configurez nginx
+Ouvrez le fichier de configuration principal :
+```Terminal
+$ sudo nano /etc/nginx/sites-available/default
+```
+
+### Ensuite, remplacez le contenu du fichier par ce qui suit :
+
+```Nano
+server {
+    # Listen HTTPS
+    listen 443 ssl;
+    server_name api.example.com;
+
+    # SSL config
+    ssl_certificate /etc/nginx/certificat/certificate.crt;
+    ssl_certificate_key /etc/nginx/certificat/private.key;
+   
+     root /var/www/sport_training/public;
+   
+        # Proxy Config
+    location / {
+        proxy_pass http://localhost:1337;
+        proxy_http_version 1.1;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Host $http_host;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+        proxy_pass_request_headers on;
+    }
+   
+location /trt-conseil {
+root $symfonyRoot;
+rewrite ^/trt-conseil/(.*)$ /$1 break;
+try_files $uri @symfonyFront;
+}
+
+
+
+set $symfonyRoot /var/www/trt-conseil/public;
+set $symfonyScript index.php;
+   
+  # This is for the Symfony application
+location @symfonyFront {
+fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
+include /etc/nginx/fastcgi_params;
+fastcgi_param SCRIPT_FILENAME $symfonyRoot/$symfonyScript;
+fastcgi_param SCRIPT_NAME /trt-conseil/$symfonyScript;
+fastcgi_param REQUEST_URI /trt-conseil$uri?$args;
+}
+   
+ 
+
+   # return 404 for all other php files not matching the front controller
+   # this prevents access to other php files you don't want to be accessible.
+   location ~ \.php$ {
+     return 404;
+   }
+       
+}
+```
+
+### Redémarrez nginx :
+```Terminal
+$ sudo systemctl restart nginx
+```
+### Redémarrez nginx :
+
+votre site sera disponible àl'adresse suivante:
+https://<adressIP>/trt-conseil/
+Le serveur hébergeant déja un site, l'application symfony sera dispoble dans un sous-dossier sport_training.
+
 # sécurisation de l'environement
 
-il est maintenant temps de mettre en place un pare-feu. Un pare-feu est essentiel lors de la configuration du VPS pour limiter le trafic indésirable sortant ou entrant dans votre VPS. Installez ufw et configurez un pare-feu pour autoriser les opérations SSH en faisant .
+Il est maintenant temps de mettre en place un pare-feu. Un pare-feu est essentiel lors de la configuration du VPS pour limiter le trafic indésirable sortant ou entrant dans votre VPS. Installez ufw et configurez un pare-feu pour autoriser les opérations SSH en faisant:
 
 ## Installation du parefeu ufw
 ```Terminal
@@ -357,4 +466,3 @@ $ sudo apt install fail2ban
 
 
 ------
-# mise en production de l'environement

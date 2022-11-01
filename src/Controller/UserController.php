@@ -51,7 +51,7 @@ class UserController extends AbstractController
                     'success',
                     'Les modifications de votre compte ont été modifiés'
                 );
-                return $this->redirectToRoute('user.index');
+                return $this->redirectToRoute('home.index');
             }else{
                 $this->addFlash(
                     'Warning',
@@ -92,7 +92,7 @@ class UserController extends AbstractController
                 );
                 $manager->persist($choosenUser);
                 $manager->flush();
-                return $this->redirectToRoute('user.index');
+                return $this->redirectToRoute('home.index');
             }else{
                 $this->addFlash(
                     'Warning',
@@ -117,6 +117,6 @@ class UserController extends AbstractController
            'success',
            'Votre utilisateur à été supprimer avec succes !'
         );
-        return $this->redirectToRoute('user.index');
+        return $this->redirectToRoute('home.index');
     }
 }
